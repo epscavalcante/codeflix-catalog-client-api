@@ -7,9 +7,7 @@ use Core\Domain\Entities\Category;
 interface CategoryRepository
 {
     /**
-     * @param string $id  ID category
-     * 
-     * @return Category
+     * @param  string  $id  ID category
      */
     public function find(string $id): Category;
 

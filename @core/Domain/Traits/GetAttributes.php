@@ -7,6 +7,7 @@ trait GetAttributes
     public function __get($key)
     {
         var_dump($this);
+
         return $this->{$key};
     }
 
