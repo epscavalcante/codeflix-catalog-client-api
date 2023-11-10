@@ -1,0 +1,59 @@
+version: '3'
+
+# networks:
+#   laranet:
+#     driver: bridge
+
+services:
+  app:
+    build:
+      context: ./php
+    # entrypoint: .docker/entrypoint.sh
+    container_name: app
+    # environment:
+    #   - DB_HOST=db
+    # networks:
+    #   - laranet
+    volumes:
+      - ../:/var/www
+    # depends_on:
+    #   db:
+    #     condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    volumes:
+      - ..:/var/www
+    # networks:
+    #   - laranet
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+  # db:
+  #   container_name: db
+  #   image: mysql:8.0.33
+  #   environment:
+  #     - MYSQL_DATABASE=app
+  #     - MYSQL_ROOT_PASSWORD=root
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - .docker/db/data:/var/lib/mysql
+  #   networks:
+  #     - laranet
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 10s
+  #     timeout: 10s
+  #     retries: 3
+
