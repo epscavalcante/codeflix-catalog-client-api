@@ -33,25 +33,25 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+      run: php artisan test
 
     - name: Execute lint via Pint
       run: vendor/bin/pint --test
 
-  build:
-    name: Build
-    needs: tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Log in to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_PWD }}
-      - name: Build & push da imagem do docker
-        uses: docker/build-push-action@v3
-        with:
-          file: ./.docker/php/Dockerfile.prod
-          push: true
-          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}, ${{ env.IMAGE_NAME }}:latest
+  # build:
+  #   name: Build
+  #   needs: tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Log in to DockerHub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.DOCKER_HUB_USER }}
+  #         password: ${{ secrets.DOCKER_HUB_PWD }}
+  #     - name: Build & push da imagem do docker
+  #       uses: docker/build-push-action@v3
+  #       with:
+  #         file: ./.docker/php/Dockerfile.prod
+  #         push: true
+  #         tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}, ${{ env.IMAGE_NAME }}:latest

@@ -20,8 +20,8 @@ class Uuid
 
     private function isValid(string $uuid)
     {
-        if (!RamseyUuid::isValid($uuid)) {
-            throw new InvalidArgumentException("Invalid uuid");
+        if (! RamseyUuid::isValid($uuid)) {
+            throw new InvalidArgumentException('Invalid uuid');
         }
     }
 

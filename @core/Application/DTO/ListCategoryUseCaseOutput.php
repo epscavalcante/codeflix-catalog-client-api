@@ -5,9 +5,9 @@ namespace Core\Application\DTO;
 use Core\Domain\Entities\Category;
 
 class ListCategoryUseCaseOutput
-{   
+{
     /**
-     * @var array<Category> $categories
+     * @var array<Category>
      */
     public function __construct(
         public readonly array $categories,
@@ -15,8 +15,7 @@ class ListCategoryUseCaseOutput
     }
 
     /**
-     * @var array<Category> $categories
-     * @return self
+     * @var array<Category>
      */
     public static function fromEntities(array $categories): self
     {

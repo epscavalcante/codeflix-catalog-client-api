@@ -50,7 +50,6 @@ test('Deve inicializar categoria inativa', function () {
     expect($category->isActive)->toBe(false);
 });
 
-
 test('Deve inicializar categoria ativa', function () {
     $category = new Category(name: 'Test', isActive: true);
 

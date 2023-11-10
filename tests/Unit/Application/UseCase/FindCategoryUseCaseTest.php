@@ -17,7 +17,7 @@ test('FindCategoryUseCaseTest', function () {
         'name' => 'Test',
         new Uuid($id),
         'description',
-        true
+        true,
     ]);
 
     // $mockCategory->shouldReceive('id')->andReturn((string) $id);

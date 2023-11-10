@@ -10,25 +10,28 @@ class DomainValidator
         string $value = null,
         string $message = 'value must not be empty'
     ) {
-        if (is_null($value) || empty(trim($value)))
+        if (is_null($value) || empty(trim($value))) {
             throw new EntityValidationException($message);
+        }
     }
 
     public static function maxLength(
         string $value,
         int $length = 255,
-        string $message = "value must be less than %s characters"
+        string $message = 'value must be less than %s characters'
     ) {
-        if (strlen($value) > $length)
+        if (strlen($value) > $length) {
             throw new EntityValidationException(sprintf($message, $length));
+        }
     }
 
     public static function minLength(
         string $value,
         int $length = 3,
-        string $message = "value must be greater than %s characters"
+        string $message = 'value must be greater than %s characters'
     ) {
-        if (strlen($value) < $length)
+        if (strlen($value) < $length) {
             throw new EntityValidationException(sprintf($message, $length));
+        }
     }
 }

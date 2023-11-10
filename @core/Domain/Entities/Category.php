@@ -45,7 +45,8 @@ class Category
         DomainValidator::maxLength($this->name, 255);
         DomainValidator::maxLength($this->name, 255);
 
-        if ($this->description)
+        if ($this->description) {
             DomainValidator::maxLength($this->description, 1000);
+        }
     }
 }

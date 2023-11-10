@@ -33,7 +33,6 @@ test('Deve validar maxLength com mensagem customizada', function () {
     DomainValidator::maxLength(str_repeat('a', 256), message: 'Custom message');
 })->throws(EntityValidationException::class, 'Custom message');
 
-
 test('Deve validar minLength com valor default', function () {
     DomainValidator::minLength(str_repeat('a', 2));
 })->throws(EntityValidationException::class);
