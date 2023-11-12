@@ -2,23 +2,20 @@
 
 namespace Core\Domain\Entities;
 
-use Core\Domain\Traits\GetAttributes;
 use Core\Domain\Validators\DomainValidator;
-use Core\Domain\ValueObjects\Uuid;
+use Core\Domain\ValueObjects\CategoryId;
 use DateTime;
 
 class Category
 {
-    use GetAttributes;
-
     public function __construct(
         public string $name,
-        public ?Uuid $id = null,
+        public ?CategoryId $id = null,
         public ?string $description = null,
         public bool $isActive = true,
         public ?DateTime $createdAt = null,
     ) {
-        $this->id = $this->id ?? Uuid::generate();
+        $this->id = $this->id ?? CategoryId::generate();
         $this->createdAt = $this->createdAt ?? new DateTime();
 
         $this->validate();

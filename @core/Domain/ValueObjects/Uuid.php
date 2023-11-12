@@ -2,15 +2,17 @@
 
 namespace Core\Domain\ValueObjects;
 
-use InvalidArgumentException;
+use Core\Domain\Exceptions\UuidValidationException;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 
 class Uuid
 {
     public function __construct(
-        protected string $value,
+        protected ?string $value = null,
     ) {
-        $this->isValid($value);
+        $this->value = $value ?? (string) self::generate();
+
+        $this->isValid($this->value);
     }
 
     public static function generate(): self
@@ -21,7 +23,7 @@ class Uuid
     private function isValid(string $uuid)
     {
         if (! RamseyUuid::isValid($uuid)) {
-            throw new InvalidArgumentException('Invalid uuid');
+            throw new UuidValidationException($uuid);
         }
     }
 
