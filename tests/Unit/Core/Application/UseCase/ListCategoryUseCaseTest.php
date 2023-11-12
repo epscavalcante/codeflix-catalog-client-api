@@ -2,16 +2,11 @@
 
 namespace Tests\Unit\Core\Application\UseCase;
 
-use Core\Application\DTO\FindCategoryUseCaseInput;
-use Core\Application\DTO\FindCategoryUseCaseOutput;
 use Core\Application\DTO\ListCategoryUseCaseOutput;
-use Core\Application\UseCase\FindCategoryUseCase;
 use Core\Application\UseCase\ListCategoryUseCase;
 use Core\Domain\Entities\Category;
 use Core\Domain\Repository\CategoryRepository;
 use Core\Domain\ValueObjects\CategoryId;
-use Core\Infra\Repository\CategoryMemoryRepository;
-use Database\Factories\CategoryFactory;
 use DateTime;
 use Mockery;
 
@@ -43,7 +38,7 @@ test('ListCategoryUseCaseTest 2 registros', function () {
         new Category(
             id: CategoryId::generate(),
             name: 'Category 2'
-        )
+        ),
     ];
 
     $mockRepository = Mockery::mock(CategoryRepository::class);
@@ -59,7 +54,7 @@ test('ListCategoryUseCaseTest 2 registros', function () {
     expect($output->categories)->toBeArray();
     expect($output->categories)->toHaveCount(2);
 
-    foreach($output->categories as $key => $categoryOutput) {
+    foreach ($output->categories as $key => $categoryOutput) {
         expect($categoryOutput->id)->toBeString()->toBe((string) $categories[$key]->id);
         expect($categoryOutput->name)->toBeString()->toBe($categories[$key]->name);
         expect($categoryOutput->isActive)->toBeBool()->toBe($categories[$key]->isActive);

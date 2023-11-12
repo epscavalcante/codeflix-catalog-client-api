@@ -50,7 +50,7 @@ class ResetCatalogIndexCommand extends Command
 
         try {
             $this->elasticsearchClient->raw()->indices()->delete([
-                'index' => "{$prefix}.{$index}"
+                'index' => "{$prefix}.{$index}",
             ]);
         } catch (\Throwable $th) {
             $this->error("Erro ao remover index {$index}");
@@ -98,7 +98,7 @@ class ResetCatalogIndexCommand extends Command
             $params['body'][] = [
                 'index' => [
                     '_index' => $index,
-                ]
+                ],
             ];
 
             $params['body'][] = (new CategoryFactory())->definition();
@@ -115,7 +115,7 @@ class ResetCatalogIndexCommand extends Command
             $params['body'][] = [
                 'index' => [
                     '_index' => $index,
-                ]
+                ],
             ];
 
             $params['body'][] = (new GenreFactory())->definition();
@@ -132,7 +132,7 @@ class ResetCatalogIndexCommand extends Command
             $params['body'][] = [
                 'index' => [
                     '_index' => $index,
-                ]
+                ],
             ];
 
             $params['body'][] = (new CastMemberFactory())->definition();

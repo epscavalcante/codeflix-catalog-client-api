@@ -5,7 +5,6 @@ namespace Tests\Unit\Core\Domain\Entities;
 use Core\Domain\Entities\Category;
 use Core\Domain\Exceptions\EntityValidationException;
 use Core\Domain\ValueObjects\CategoryId;
-use Core\Domain\ValueObjects\Uuid;
 use DateTime;
 
 test('Deve receber exception EntityValidationException - nome longo', function () {

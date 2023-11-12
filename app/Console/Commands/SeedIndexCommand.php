@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Core\Infra\ElasticsearchClientInterface;
 use Database\Factories\CategoryFactory;
 use Illuminate\Console\Command;
-
 use function Laravel\Prompts\select;
 
 class SeedIndexCommand extends Command
@@ -39,6 +38,7 @@ class SeedIndexCommand extends Command
 
         if (count($indices) === 0) {
             $this->warn('Não há indices registrados. Runs php artisan app:create-index');
+
             return 1;
         }
 
@@ -53,7 +53,7 @@ class SeedIndexCommand extends Command
             $params['body'][] = [
                 'index' => [
                     '_index' => $index,
-                ]
+                ],
             ];
 
             $params['body'][] = (new CategoryFactory())->definition();

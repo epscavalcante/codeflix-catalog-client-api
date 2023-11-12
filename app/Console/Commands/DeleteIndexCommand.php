@@ -37,9 +37,9 @@ class DeleteIndexCommand extends Command
 
         if (count($indices) === 0) {
             $this->warn('Não há indices registrados.');
+
             return 1;
         }
-
 
         $index = select(
             'Qual index será removido?',
@@ -47,7 +47,7 @@ class DeleteIndexCommand extends Command
         );
 
         $this->elasticsearchClient->raw()->indices()->delete([
-            'index' => $index
+            'index' => $index,
         ]);
     }
-}#:
+}//:

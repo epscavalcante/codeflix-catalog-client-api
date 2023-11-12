@@ -4,7 +4,6 @@ namespace Tests\Unit\Core\Domain\Exceptions;
 
 use Core\Domain\Exceptions\EntityNotFoundException;
 
-
 test('Valida mensagem padrão retornada', function () {
     throw new EntityNotFoundException();
 })->throws(EntityNotFoundException::class, 'Entity not found');

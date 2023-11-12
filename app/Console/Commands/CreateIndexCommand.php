@@ -2,11 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Adapters\ElasticsearchAdapter;
 use Core\Infra\ElasticsearchClientInterface;
-use Database\Factories\CategoryFactory;
 use Illuminate\Console\Command;
-
 use function Laravel\Prompts\text;
 
 class CreateIndexCommand extends Command
@@ -45,7 +42,7 @@ class CreateIndexCommand extends Command
         );
 
         $this->elasticsearchClient->raw()->indices()->create([
-            'index' => "{$prefix}.{$index}"
+            'index' => "{$prefix}.{$index}",
         ]);
     }
 }

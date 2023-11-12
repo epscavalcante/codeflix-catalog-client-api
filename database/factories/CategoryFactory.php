@@ -21,7 +21,7 @@ class CategoryFactory extends Factory
             'name' => "{$this->faker->colorName()} {$this->faker->company()}",
             'description' => $this->faker->boolean() ? $this->faker->sentences(rand(1, 5), true) : null,
             'is_active' => $this->faker->boolean(),
-            'created_at' => $this->faker->iso8601()
+            'created_at' => $this->faker->iso8601(),
         ];
     }
 }

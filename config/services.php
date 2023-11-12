@@ -35,13 +35,13 @@ return [
         'hosts' => explode(',', env('ELASTICSEARCH_HOSTS', 'elasticsearch:9200')),
         'username' => env('ELASTICSEARCH_USERNAME', 'elasticsearch'),
         'password' => env('ELASTICSEARCH_PASSWORD', 'defaultpassword'),
-        'default_index' => env('ELASTICSEARCH_DEFAULT_INDEX', 'app')
+        'default_index' => env('ELASTICSEARCH_DEFAULT_INDEX', 'app'),
     ],
 
     'logstash' => [
         'driver' => 'custom',
         'via' => LogstashLogger::class,
         'host' => env('LOGSTASH_HOST', 'logstash'),
-        'port' => env('LOGSTASH_PORT', 4718)
+        'port' => env('LOGSTASH_PORT', 4718),
     ],
 ];

@@ -16,7 +16,7 @@ class CategoryElasticsearchRepository implements CategoryRepository
 
     public function __construct(protected ElasticsearchClientInterface $elastichsearch)
     {
-        $this->params['index'] = Config::get('services.elasticsearch.default_index') . '.categories';
+        $this->params['index'] = Config::get('services.elasticsearch.default_index').'.categories';
     }
 
     public function find(string $id): Category
@@ -24,15 +24,16 @@ class CategoryElasticsearchRepository implements CategoryRepository
         $this->params['body'] = [
             'query' => [
                 'match' => [
-                    'id' => $id
-                ]
-            ]
+                    'id' => $id,
+                ],
+            ],
         ];
 
         $response = $this->elastichsearch->search($this->params);
 
-        if (count($response) === 0)
+        if (count($response) === 0) {
             throw new CategoryNotFoundException(new CategoryId($id));
+        }
 
         return new Category(
             id: new CategoryId($response[0]['_source']['id']),
@@ -52,9 +53,9 @@ class CategoryElasticsearchRepository implements CategoryRepository
             $this->params['body'] = [
                 'query' => [
                     'match' => [
-                        'after.name' => $query
-                    ]
-                ]
+                        'after.name' => $query,
+                    ],
+                ],
             ];
         }
 

@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     Log::info('Teste', []);
+
     return view('welcome');
 });

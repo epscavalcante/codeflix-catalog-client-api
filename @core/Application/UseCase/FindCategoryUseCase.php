@@ -4,7 +4,6 @@ namespace Core\Application\UseCase;
 
 use Core\Application\DTO\CategoryUseCaseOutput;
 use Core\Application\DTO\FindCategoryUseCaseInput;
-use Core\Application\DTO\FindCategoryUseCaseOutput;
 use Core\Domain\Repository\CategoryRepository;
 
 class FindCategoryUseCase

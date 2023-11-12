@@ -7,7 +7,6 @@ use Core\Application\UseCase\FindCategoryUseCase;
 use Core\Infra\ElasticsearchClientInterface;
 use Core\Infra\Repository\CategoryElasticsearchRepository;
 
-
 test('FindCategoryUseCaseIntegrationTest', function () {
     $elasticsearchClentMock = new class implements ElasticsearchClientInterface
     {

@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Carbon;
 
 class CategoryResource extends JsonResource
 {
@@ -20,7 +19,7 @@ class CategoryResource extends JsonResource
             'name' => $this->resource->name,
             'description' => $this->resource->description,
             'is_active' => $this->resource->isActive,
-            'created_at' => $this->resource->createdAt->toIso8601String()
+            'created_at' => $this->resource->createdAt->toIso8601String(),
         ];
     }
 }

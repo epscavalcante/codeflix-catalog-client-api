@@ -31,14 +31,14 @@ class Handler extends ExceptionHandler
             if ($e instanceof UuidValidationException) {
                 return response()->json([
                     'status' => HttpResponse::HTTP_BAD_REQUEST,
-                    'message' => $e->getMessage()
+                    'message' => $e->getMessage(),
                 ], HttpResponse::HTTP_BAD_REQUEST);
             }
 
             if ($e instanceof EntityNotFoundException) {
                 return response()->json([
                     'status' => HttpResponse::HTTP_NOT_FOUND,
-                    'message' => $e->getMessage()
+                    'message' => $e->getMessage(),
                 ], HttpResponse::HTTP_NOT_FOUND);
             }
         });

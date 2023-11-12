@@ -8,5 +8,6 @@ interface ElasticsearchClientInterface
 
     // Remover error de método não definido
     public function getIndices(): array;
+
     public function raw();
 }
