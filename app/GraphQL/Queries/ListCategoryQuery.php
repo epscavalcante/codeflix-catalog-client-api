@@ -31,8 +31,8 @@ class ListCategoryQuery extends Query
         return [
             'filter' => [
                 'name' => 'filter',
-                'type' => Type::string()
-            ]
+                'type' => Type::string(),
+            ],
         ];
     }
 

@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use Closure;
 use Core\Application\DTO\FindCategoryUseCaseInput;
 use Core\Application\UseCase\FindCategoryUseCase;
-use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
-use Rebing\GraphQL\Support\SelectFields;
 
 class FindCategoryQuery extends Query
 {
@@ -35,8 +32,8 @@ class FindCategoryQuery extends Query
             'id' => [
                 'name' => 'id',
                 'type' => Type::string(),
-                'rules' => ['required']
-            ]
+                'rules' => ['required'],
+            ],
         ];
     }
 

@@ -83,7 +83,7 @@ return [
             ],
             // The types only available in this schema
             'types' => [
-                'CategoryType' => \App\GraphQL\Types\CategoryType::class
+                'CategoryType' => \App\GraphQL\Types\CategoryType::class,
             ],
 
             // Laravel HTTP middleware
