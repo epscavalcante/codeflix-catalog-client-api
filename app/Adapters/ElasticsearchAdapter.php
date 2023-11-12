@@ -13,7 +13,7 @@ class ElasticsearchAdapter implements ElasticsearchClientInterface
 
     public function __construct() {
         $this->elasticsearch = ClientBuilder::create()
-                ->setHosts([Config::get('services.elasticsearch.hosts')])
+                ->setHosts(Config::get('services.elasticsearch.hosts'))
                 ->setBasicAuthentication(
                     Config::get('services.elasticsearch.username'),
                     Config::get('services.elasticsearch.password')

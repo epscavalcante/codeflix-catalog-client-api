@@ -32,10 +32,10 @@ return [
     ],
 
     'elasticsearch' => [
-        'hosts' => env('ELASTICSEARCH_HOSTS'),
-        'username' => env('ELASTICSEARCH_USERNAME'),
-        'password' => env('ELASTICSEARCH_PASSWORD'),
-        'default_index' => env('ELASTICSEARCH_DEFAULT_INDEX')
+        'hosts' => explode(',', env('ELASTICSEARCH_HOSTS', 'elasticsearch:9200')),
+        'username' => env('ELASTICSEARCH_USERNAME', 'elasticsearch'),
+        'password' => env('ELASTICSEARCH_PASSWORD', 'defaultpassword'),
+        'default_index' => env('ELASTICSEARCH_DEFAULT_INDEX', 'app')
     ],
 
     'logstash' => [
