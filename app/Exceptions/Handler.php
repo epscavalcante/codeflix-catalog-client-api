@@ -27,36 +27,20 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
+
+            if ($e instanceof UuidValidationException) {
+                return response()->json([
+                    'status' => HttpResponse::HTTP_BAD_REQUEST,
+                    'message' => $e->getMessage()
+                ], HttpResponse::HTTP_BAD_REQUEST);
+            }
+
+            if ($e instanceof EntityNotFoundException) {
+                return response()->json([
+                    'status' => HttpResponse::HTTP_NOT_FOUND,
+                    'message' => $e->getMessage()
+                ], HttpResponse::HTTP_NOT_FOUND);
+            }
         });
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $e
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Throwable
-     */
-    public function render($request, Throwable $e)
-    {
-        // buscar um jeito de usar a interface das exceptions do FW?
-        if ($e instanceof UuidValidationException) {
-            return response()->json([
-                'status' => HttpResponse::HTTP_BAD_REQUEST,
-                'message' => $e->getMessage()
-            ], HttpResponse::HTTP_BAD_REQUEST);
-        }
-
-        if ($e instanceof EntityNotFoundException) {
-            return response()->json([
-                'status' => HttpResponse::HTTP_NOT_FOUND,
-                'message' => $e->getMessage()
-            ], HttpResponse::HTTP_NOT_FOUND);
-        }
-
-        parent::render($request, $e);
     }
 }

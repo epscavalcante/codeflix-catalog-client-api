@@ -31,4 +31,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'elasticsearch' => [
+        'hosts' => env('ELASTICSEARCH_HOSTS'),
+        'username' => env('ELASTICSEARCH_USERNAME'),
+        'password' => env('ELASTICSEARCH_PASSWORD'),
+        'default_index' => env('ELASTICSEARCH_DEFAULT_INDEX')
+    ],
+
+    'logstash' => [
+        'driver' => 'custom',
+        'via' => LogstashLogger::class,
+        'host' => env('LOGSTASH_HOST', 'logstash'),
+        'port' => env('LOGSTASH_PORT', 4718)
+    ],
 ];

@@ -36,7 +36,7 @@ class CreateIndexCommand extends Command
      */
     public function handle()
     {
-        $prefix = Config('elasticsearch.default_index');
+        $prefix = Config('services.elasticsearch.default_index');
 
         $index = text(
             label: 'Qual o nome do indice?',

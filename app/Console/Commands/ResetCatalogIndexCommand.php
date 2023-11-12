@@ -46,7 +46,7 @@ class ResetCatalogIndexCommand extends Command
 
     private function removeIndex($index)
     {
-        $prefix = Config('elasticsearch.default_index');
+        $prefix = Config('services.elasticsearch.default_index');
 
         try {
             $this->elasticsearchClient->raw()->indices()->delete([
@@ -59,7 +59,7 @@ class ResetCatalogIndexCommand extends Command
 
     private function seedIndex($index)
     {
-        $prefix = Config('elasticsearch.default_index');
+        $prefix = Config('services.elasticsearch.default_index');
         $index = "{$prefix}.{$index}";
         $data = [];
 
@@ -80,7 +80,7 @@ class ResetCatalogIndexCommand extends Command
                 break;
         }
 
-        $prefix = Config('elasticsearch.default_index');
+        $prefix = Config('services.elasticsearch.default_index');
 
         // $this->elasticsearchClient->raw()->indices()->create([
         //     'index' => $index

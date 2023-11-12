@@ -16,7 +16,7 @@ class CategoryElasticsearchRepository implements CategoryRepository
 
     public function __construct(protected ElasticsearchClientInterface $elastichsearch)
     {
-        $this->params['index'] = Config::get('elasticsearch.default_index') . '.categories';
+        $this->params['index'] = Config::get('services.elasticsearch.default_index') . '.categories';
     }
 
     public function find(string $id): Category
@@ -39,7 +39,7 @@ class CategoryElasticsearchRepository implements CategoryRepository
             name: $response[0]['_source']['name'],
             description: isset($response[0]['_source']['description']) ? $response[0]['_source']['description'] : null,
             isActive: $response[0]['_source']['is_active'],
-            createdAt: Carbon::parse($response[0]['_source']['created_at']['date'])
+            createdAt: Carbon::parse($response[0]['_source']['created_at'])
         );
     }
 
@@ -67,7 +67,7 @@ class CategoryElasticsearchRepository implements CategoryRepository
                     name: $item['_source']['name'],
                     description: isset($item['_source']['description']) ? $item['_source']['description'] : null,
                     isActive: $item['_source']['is_active'],
-                    createdAt: Carbon::parse($item['_source']['created_at']['date'])
+                    createdAt: Carbon::parse($item['_source']['created_at'])
                 );
             },
             $response
