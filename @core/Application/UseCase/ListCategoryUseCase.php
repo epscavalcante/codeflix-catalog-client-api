@@ -12,9 +12,9 @@ class ListCategoryUseCase
     ) {
     }
 
-    public function execute(): ListCategoryUseCaseOutput
+    public function execute(?string $filter = null): ListCategoryUseCaseOutput
     {
-        $categoriesSearched = $this->repository->search();
+        $categoriesSearched = $this->repository->search($filter);
 
         return ListCategoryUseCaseOutput::fromEntities($categoriesSearched);
     }
