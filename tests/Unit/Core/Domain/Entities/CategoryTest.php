@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\Domain\Entities;
+namespace Tests\Unit\Core\Domain\Entities;
 
 use Core\Domain\Entities\Category;
 use Core\Domain\Exceptions\EntityValidationException;
-use Core\Domain\ValueObjects\Uuid;
+use Core\Domain\ValueObjects\CategoryId;
 use DateTime;
 
 test('Deve receber exception EntityValidationException - nome longo', function () {
@@ -61,11 +61,11 @@ test('Deve inicializar categoria com uuid automático', function () {
 
     expect($category->id)->not->toBeString();
     expect($category->id)->not->toBeNull();
-    expect($category->id)->toBeInstanceOf(Uuid::class);
+    expect($category->id)->toBeInstanceOf(CategoryId::class);
 });
 
 test('Deve inicializar categoria com uuid via construtor', function () {
-    $uuidExample = Uuid::generate();
+    $uuidExample = CategoryId::generate();
 
     $category = new Category(
         id: $uuidExample,
@@ -74,12 +74,12 @@ test('Deve inicializar categoria com uuid via construtor', function () {
 
     expect($category->id)->not->toBeString();
     expect($category->id)->not->toBeNull();
-    expect($category->id)->toBeInstanceOf(Uuid::class);
+    expect($category->id)->toBeInstanceOf(CategoryId::class);
 });
 
 test('Deve inativar uma categoria', function () {
     $category = new Category(
-        id: Uuid::generate(),
+        id: CategoryId::generate(),
         name: 'Test'
     );
 
@@ -90,7 +90,7 @@ test('Deve inativar uma categoria', function () {
 
 test('Deve ativar uma categoria', function () {
     $category = new Category(
-        id: Uuid::generate(),
+        id: CategoryId::generate(),
         name: 'Test',
         isActive: false
     );

@@ -2,8 +2,8 @@
 
 namespace Core\Application\UseCase;
 
+use Core\Application\DTO\CategoryUseCaseOutput;
 use Core\Application\DTO\FindCategoryUseCaseInput;
-use Core\Application\DTO\FindCategoryUseCaseOutput;
 use Core\Domain\Repository\CategoryRepository;
 
 class FindCategoryUseCase
@@ -13,10 +13,10 @@ class FindCategoryUseCase
     ) {
     }
 
-    public function execute(FindCategoryUseCaseInput $input): FindCategoryUseCaseOutput
+    public function execute(FindCategoryUseCaseInput $input): CategoryUseCaseOutput
     {
         $categoryFound = $this->repository->find($input->id);
 
-        return FindCategoryUseCaseOutput::fromEntity($categoryFound);
+        return CategoryUseCaseOutput::fromEntity($categoryFound);
     }
 }

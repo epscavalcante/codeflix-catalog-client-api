@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\LogstashLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -56,6 +57,11 @@ return [
             'driver' => 'stack',
             'channels' => ['single'],
             'ignore_exceptions' => false,
+        ],
+
+        'logstash' => [
+            'driver' => 'custom',
+            'via' => LogstashLogger::class,
         ],
 
         'single' => [

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Adapters\ElasticsearchAdapter;
+use Core\Domain\Repository\CategoryRepository;
+use Core\Infra\ElasticsearchClientInterface;
+use Core\Infra\Repository\CategoryElasticsearchRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +15,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // $this->app->singleton(Client::class, function () {
+        //     return ClientBuilder::create()
+        //         ->setHosts([Config::get('elasticsearch.hosts')])
+        //         ->setBasicAuthentication(
+        //             Config::get('elasticsearch.username'),
+        //             Config::get('elasticsearch.password')
+        //         )
+        //         ->build();
+        // });
+
+        $this->app->singleton(
+            ElasticsearchClientInterface::class,
+            ElasticsearchAdapter::class
+        );
+
+        $this->app->singleton(
+            CategoryRepository::class,
+            CategoryElasticsearchRepository::class
+        );
     }
 
     /**
