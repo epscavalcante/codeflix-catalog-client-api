@@ -14,5 +14,5 @@ interface CategoryRepository
     /**
      * @return array<Category>
      */
-    public function search(?string $query = null);
+    public function search(string $query = null): array;
 }

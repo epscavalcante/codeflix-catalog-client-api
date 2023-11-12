@@ -47,7 +47,7 @@ class CategoryElasticsearchRepository implements CategoryRepository
     /**
      * @return array Category
      */
-    public function search(?string $query = null): array
+    public function search(string $query = null): array
     {
         if (isset($query) && $query !== '') {
             $this->params['body'] = [
