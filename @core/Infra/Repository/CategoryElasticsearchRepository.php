@@ -17,7 +17,7 @@ class CategoryElasticsearchRepository implements CategoryRepository
     public function __construct(
         protected ElasticsearchClientInterface $elastichsearch,
     ) {
-        $this->params['index'] = Config::get('services.elasticsearch.default_index') . '.categories';
+        $this->params['index'] = Config::get('services.elasticsearch.default_index').'.categories';
     }
 
     public function find(CategoryId $id): Category

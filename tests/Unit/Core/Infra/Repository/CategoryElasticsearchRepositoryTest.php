@@ -58,8 +58,8 @@ test('Find', function () {
                     'description' => 'Desc',
                     'is_active' => true,
                     'created_at' => '2023-12-12 12:12:00',
-                ]
-            ]
+                ],
+            ],
         ]);
 
     $categoryRepository = new CategoryElasticsearchRepository($mockElasticsearchClientAdapter);

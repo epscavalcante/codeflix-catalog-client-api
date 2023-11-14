@@ -14,8 +14,7 @@ class CategoryController extends Controller
     public function __construct(
         // private ListCategoryUseCase $listCategoryUseCase,
         // private FindCategoryUseCase $findCategoryUseCase,
-    )
-    {
+    ) {
     }
 
     public function search(Request $request, ListCategoryUseCase $listCategoryUseCase)

@@ -4,7 +4,6 @@ namespace Tests\Integration\Core\Application\UseCase;
 
 use Core\Application\DTO\CategoryUseCaseOutput;
 use Core\Application\DTO\FindCategoryUseCaseInput;
-use Core\Application\DTO\FindCategoryUseCaseOutput;
 use Core\Application\UseCase\FindCategoryUseCase;
 use Core\Domain\Exceptions\CategoryNotFoundException;
 use Core\Infra\Repository\CategoryElasticsearchRepository;
@@ -20,13 +19,13 @@ test('FindCategoryUseCaseIntegrationTest ok', function () {
         data: [
             [
                 '_source' => [
-                    "id" => "88bdf4aa-7ec7-408f-91f6-c82f192d540c",
-                    "name" => "Yellow Tromp, Quigley and Auer",
-                    "description" => null,
-                    "is_active" => true,
-                    "created_at" => "2017-04-07T07:06:33+0000"
-                ]
-            ]
+                    'id' => '88bdf4aa-7ec7-408f-91f6-c82f192d540c',
+                    'name' => 'Yellow Tromp, Quigley and Auer',
+                    'description' => null,
+                    'is_active' => true,
+                    'created_at' => '2017-04-07T07:06:33+0000',
+                ],
+            ],
         ],
     );
 
