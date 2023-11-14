@@ -3,16 +3,17 @@
 namespace Core\Domain\Repository;
 
 use Core\Domain\Entities\Category;
+use Core\Domain\ValueObjects\CategoryId;
 
 interface CategoryRepository
 {
     /**
-     * @param  string  $id  ID category
+     * @param  CategoryId  $id  ID category
      */
-    public function find(string $id): Category;
+    public function find(CategoryId $id): Category;
 
     /**
      * @return array<Category>
      */
-    public function search(?string $query = null);
+    public function search(string $query = null): array;
 }

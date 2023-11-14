@@ -75,14 +75,15 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                // ExampleQuery::class,
+                'ListCategory' => \App\GraphQL\Queries\ListCategoryQuery::class,
+                'FindCategory' => \App\GraphQL\Queries\FindCategoryQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
             ],
             // The types only available in this schema
             'types' => [
-                // ExampleType::class,
+                'CategoryType' => \App\GraphQL\Types\CategoryType::class,
             ],
 
             // Laravel HTTP middleware

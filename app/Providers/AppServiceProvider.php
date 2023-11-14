@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Adapters\ElasticsearchAdapter;
+use App\Adapters\ElasticsearchClientAdapter;
 use Core\Domain\Repository\CategoryRepository;
 use Core\Infra\ElasticsearchClientInterface;
 use Core\Infra\Repository\CategoryElasticsearchRepository;
@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             ElasticsearchClientInterface::class,
-            ElasticsearchAdapter::class
+            ElasticsearchClientAdapter::class
         );
 
         $this->app->singleton(

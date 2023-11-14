@@ -14,17 +14,18 @@ class CategoryElasticsearchRepository implements CategoryRepository
 {
     protected array $params = [];
 
-    public function __construct(protected ElasticsearchClientInterface $elastichsearch)
-    {
+    public function __construct(
+        protected ElasticsearchClientInterface $elastichsearch,
+    ) {
         $this->params['index'] = Config::get('services.elasticsearch.default_index').'.categories';
     }
 
-    public function find(string $id): Category
+    public function find(CategoryId $id): Category
     {
         $this->params['body'] = [
             'query' => [
                 'match' => [
-                    'id' => $id,
+                    'id' => (string) $id,
                 ],
             ],
         ];
@@ -32,11 +33,11 @@ class CategoryElasticsearchRepository implements CategoryRepository
         $response = $this->elastichsearch->search($this->params);
 
         if (count($response) === 0) {
-            throw new CategoryNotFoundException(new CategoryId($id));
+            throw new CategoryNotFoundException($id);
         }
 
         return new Category(
-            id: new CategoryId($response[0]['_source']['id']),
+            id: $id,
             name: $response[0]['_source']['name'],
             description: isset($response[0]['_source']['description']) ? $response[0]['_source']['description'] : null,
             isActive: $response[0]['_source']['is_active'],
@@ -47,13 +48,13 @@ class CategoryElasticsearchRepository implements CategoryRepository
     /**
      * @return array Category
      */
-    public function search(?string $query = null): array
+    public function search(string $query = null): array
     {
         if (isset($query) && $query !== '') {
             $this->params['body'] = [
                 'query' => [
                     'match' => [
-                        'after.name' => $query,
+                        'name' => $query,
                     ],
                 ],
             ];
