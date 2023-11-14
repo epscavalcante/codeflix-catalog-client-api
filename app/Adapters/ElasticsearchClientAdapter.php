@@ -7,7 +7,7 @@ use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Config;
 
-class ElasticsearchAdapter implements ElasticsearchClientInterface
+class ElasticsearchClientAdapter implements ElasticsearchClientInterface
 {
     protected Client $elasticsearch;
 
