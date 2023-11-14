@@ -26,13 +26,12 @@ test('FindCategoryUseCaseTest', function () {
     );
 
     $input = new FindCategoryUseCaseInput(
-        id: $id
+        id: (string) $id
     );
 
     $mockRepository = Mockery::mock(CategoryRepository::class);
     $mockRepository->shouldReceive('find')
         ->times(1)
-        ->with($input->id)
         ->andReturn($mockCategory);
 
     $useCase = new FindCategoryUseCase($mockRepository);
