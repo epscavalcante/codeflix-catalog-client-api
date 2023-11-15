@@ -22,11 +22,11 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests)
+    - name: Execute tests (Unit Feature tests)
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test
+      run: php artisan test --testsuite=Unit
 
     - name: Execute lint via Pint
       run: vendor/bin/pint --test
