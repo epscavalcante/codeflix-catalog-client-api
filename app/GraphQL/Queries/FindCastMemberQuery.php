@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
+use App\Http\Resources\CastMemberResource;
 use Core\Application\DTO\CastMember\FindCastMemberUseCaseInput;
 use Core\Application\UseCase\CastMember\FindCastMemberUseCase;
 use GraphQL\Type\Definition\Type;
@@ -46,6 +47,6 @@ class FindCastMemberQuery extends Query
             input: $input
         );
 
-        return $output;
+        return (new CastMemberResource($output))->resolve();
     }
 }

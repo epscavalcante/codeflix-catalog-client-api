@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use App\Http\Resources\CastMemberResource;
-use Core\Application\DTO\CastMember\ListCastMemberUseCaseInput;
-use Core\Application\UseCase\CastMember\ListCastMemberUseCase;
+use App\Http\Resources\GenreResource;
+use Core\Application\DTO\Genre\ListGenreUseCaseInput;
+use Core\Application\UseCase\Genre\ListGenreUseCase;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
 
-class ListCastMemberQuery extends Query
+class ListGenreQuery extends Query
 {
     protected $attributes = [
-        'name' => 'ListCastMember',
+        'name' => 'ListGenre',
     ];
 
     public function __construct(
-        protected ListCastMemberUseCase $usecase
+        protected ListGenreUseCase $usecase
     ) {
     }
 
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type('CastMemberType'));
+        return Type::listOf(GraphQL::type('GenreType'));
     }
 
     public function args(): array
@@ -37,15 +37,18 @@ class ListCastMemberQuery extends Query
         ];
     }
 
-    public function resolve($root, array $args)
+    /**
+     * @return array<GenreCategoryOutput>
+     */
+    public function resolve($root, array $args): array
     {
-        $input = new ListCastMemberUseCaseInput(
+        $input = new ListGenreUseCaseInput(
             filter: $args['filter'] ?? null
         );
         $output = $this->usecase->execute($input);
 
         return array_map(
-            fn ($item) =>  (new CastMemberResource($item))->resolve(),
+            fn ($item) =>  (new GenreResource($item))->resolve(),
             $output->items
         );
     }

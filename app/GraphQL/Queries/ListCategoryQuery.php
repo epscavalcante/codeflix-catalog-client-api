@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
+use App\Http\Resources\CategoryResource;
 use Core\Application\DTO\ListCategoryUseCaseInput;
 use Core\Application\UseCase\ListCategoryUseCase;
 use GraphQL\Type\Definition\Type;
@@ -43,6 +44,9 @@ class ListCategoryQuery extends Query
         );
         $output = $this->usecase->execute($input);
 
-        return $output->items;
+        return array_map(
+            fn ($item) =>  (new CategoryResource($item))->resolve(),
+            $output->items
+        );
     }
 }
