@@ -1,12 +1,11 @@
 <?php
 
-namespace Core\Infra;
+namespace Core\Infra\Contracts;
 
 interface ElasticsearchClientInterface
 {
-    public function search(array $params): array;
+    public function search(array $params): SearchResult;
 
-    // Remover error de método não definido
     public function getIndices(): array;
 
     public function raw();

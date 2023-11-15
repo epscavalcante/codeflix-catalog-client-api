@@ -44,3 +44,11 @@ test('Deve validar minLength com valor mínimo de 5', function () {
 test('Deve validar minLength com mensagem customizada', function () {
     DomainValidator::minLength('a', message: 'Custom message');
 })->throws(EntityValidationException::class, 'Custom message');
+
+test('Deve validar um valor se é numérico', function () {
+    DomainValidator::isANumber('opa');
+})->throws(EntityValidationException::class);
+
+test('Deve validar valor se é numero e usar mensagem customizada', function () {
+    DomainValidator::isANumber('a', message: 'Custom message');
+})->throws(EntityValidationException::class, 'Custom message');

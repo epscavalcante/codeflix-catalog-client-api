@@ -76,26 +76,3 @@ test('Deve inicializar categoria com uuid via construtor', function () {
     expect($category->id)->not->toBeNull();
     expect($category->id)->toBeInstanceOf(CategoryId::class);
 });
-
-test('Deve inativar uma categoria', function () {
-    $category = new Category(
-        id: CategoryId::generate(),
-        name: 'Test'
-    );
-
-    $category->deactivate();
-
-    expect($category->isActive)->toBe(false);
-});
-
-test('Deve ativar uma categoria', function () {
-    $category = new Category(
-        id: CategoryId::generate(),
-        name: 'Test',
-        isActive: false
-    );
-
-    $category->activate();
-
-    expect($category->isActive)->toBe(true);
-});

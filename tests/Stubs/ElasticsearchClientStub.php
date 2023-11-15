@@ -2,7 +2,7 @@
 
 namespace Tests\Stubs;
 
-use Core\Infra\ElasticsearchClientInterface;
+use Core\Infra\Contracts\ElasticsearchClientInterface;
 use Exception;
 
 class ElasticsearchClientStub implements ElasticsearchClientInterface

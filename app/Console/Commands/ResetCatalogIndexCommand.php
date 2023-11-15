@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Core\Infra\ElasticsearchClientInterface;
+use App\Adapters\ElasticsearchClientAdapter;
 use Database\Factories\CastMemberFactory;
 use Database\Factories\CategoryFactory;
 use Database\Factories\GenreFactory;
@@ -16,7 +16,7 @@ class ResetCatalogIndexCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:reset-catalog-index-command';
+    protected $signature = 'app:reset-catalog';
 
     /**
      * The console command description.
@@ -26,7 +26,7 @@ class ResetCatalogIndexCommand extends Command
     protected $description = 'Command description';
 
     public function __construct(
-        protected ElasticsearchClientInterface $elasticsearchClient,
+        protected ElasticsearchClientAdapter $elasticsearchClient,
         protected array $defaultIndexes = ['categories', 'genres', 'cast_members']
     ) {
         parent::__construct();
@@ -73,7 +73,7 @@ class ResetCatalogIndexCommand extends Command
                 break;
 
             case 'codeflix.catalog.cast_members':
-                $data = $this->indexGenresData($index);
+                $data = $this->indexCastMembersData($index);
                 break;
             default:
                 throw new Exception("{$index} não definido");

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Core\Infra\ElasticsearchClientInterface;
+use App\Adapters\ElasticsearchClientAdapter;
 use Database\Factories\CategoryFactory;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\select;
@@ -24,7 +24,7 @@ class SeedIndexCommand extends Command
     protected $description = 'Command description';
 
     public function __construct(
-        protected ElasticsearchClientInterface $elasticsearchClient
+        protected ElasticsearchClientAdapter $elasticsearchClient
     ) {
         parent::__construct();
     }

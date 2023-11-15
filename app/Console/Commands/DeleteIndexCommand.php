@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Core\Infra\ElasticsearchClientInterface;
+use App\Adapters\ElasticsearchClientAdapter;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\select;
 
@@ -23,7 +23,7 @@ class DeleteIndexCommand extends Command
     protected $description = 'Command description';
 
     public function __construct(
-        protected ElasticsearchClientInterface $elasticsearchClient
+        protected ElasticsearchClientAdapter $elasticsearchClient
     ) {
         parent::__construct();
     }

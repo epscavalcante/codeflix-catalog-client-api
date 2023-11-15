@@ -6,6 +6,7 @@ use Core\Application\DTO\ListCategoryUseCaseOutput;
 use Core\Application\UseCase\ListCategoryUseCase;
 use Core\Domain\Entities\Category;
 use Core\Domain\Repository\CategoryRepository;
+use Core\Domain\Repository\CategoryRepositorySearchResult;
 use Core\Domain\ValueObjects\CategoryId;
 use DateTime;
 use Mockery;
@@ -19,13 +20,14 @@ test('ListCategoryUseCaseTest sem registros', function () {
     $mockRepository->shouldReceive('search')
         ->times(1)
         ->with($filter)
-        ->andReturn([]);
+        ->andReturn(new CategoryRepositorySearchResult(0, []));
 
     $useCase = new ListCategoryUseCase($mockRepository);
     $output = $useCase->execute();
 
     expect($output)->toBeInstanceOf(ListCategoryUseCaseOutput::class);
-    expect(count($output->categories))->toBe(0);
+    expect($output->total)->toBe(0);
+    expect(count($output->items))->toBe(0);
 });
 
 test('ListCategoryUseCaseTest 2 registros', function () {
@@ -45,16 +47,17 @@ test('ListCategoryUseCaseTest 2 registros', function () {
     $mockRepository->shouldReceive('search')
         ->times(1)
         ->with($filter)
-        ->andReturn($categories);
+        ->andReturn(new CategoryRepositorySearchResult(2, $categories));
 
     $useCase = new ListCategoryUseCase($mockRepository);
     $output = $useCase->execute($filter);
 
     expect($output)->toBeInstanceOf(ListCategoryUseCaseOutput::class);
-    expect($output->categories)->toBeArray();
-    expect($output->categories)->toHaveCount(2);
+    expect($output->items)->toBeArray();
+    expect($output->total)->toBe(2);
+    expect($output->items)->toHaveCount(2);
 
-    foreach ($output->categories as $key => $categoryOutput) {
+    foreach ($output->items as $key => $categoryOutput) {
         expect($categoryOutput->id)->toBeString()->toBe((string) $categories[$key]->id);
         expect($categoryOutput->name)->toBeString()->toBe($categories[$key]->name);
         expect($categoryOutput->isActive)->toBeBool()->toBe($categories[$key]->isActive);
