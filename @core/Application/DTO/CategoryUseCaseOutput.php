@@ -4,6 +4,7 @@ namespace Core\Application\DTO;
 
 use Core\Domain\Entities\Category;
 use DateTime;
+use DateTimeInterface;
 
 class CategoryUseCaseOutput
 {
@@ -25,5 +26,16 @@ class CategoryUseCaseOutput
             isActive: $category->isActive,
             createdAt: $category->createdAt
         );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'isActive' => $this->isActive,
+            'createdAt' => $this->createdAt->format(DateTime::ATOM),
+        ];
     }
 }
