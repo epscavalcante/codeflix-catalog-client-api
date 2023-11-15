@@ -4,6 +4,7 @@ namespace Tests\Unit\Core\Domain\Validators;
 
 use Core\Domain\Exceptions\EntityValidationException;
 use Core\Domain\Validators\DomainValidator;
+use Core\Domain\ValueObjects\Uuid;
 
 test('Deve validar notNull com valor null', function () {
     DomainValidator::notNull(null);
@@ -49,6 +50,11 @@ test('Deve validar um valor se é numérico', function () {
     DomainValidator::isANumber('opa');
 })->throws(EntityValidationException::class);
 
-test('Deve validar valor se é numero e usar mensagem customizada', function () {
+test('Deve validar valor se é número e usar mensagem customizada', function () {
     DomainValidator::isANumber('a', message: 'Custom message');
 })->throws(EntityValidationException::class, 'Custom message');
+
+test('Deve validar valor é instância de Uuid', function () {
+    expect(fn () => DomainValidator::isA('test', Uuid::class))->toThrow(EntityValidationException::class);
+    expect(fn () => DomainValidator::isA(Uuid::generate(), Uuid::class))->not->toThrow(EntityValidationException::class);
+});

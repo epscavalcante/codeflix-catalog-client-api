@@ -27,6 +27,6 @@ test('ListCategoryUseCaseIntegrationTest search', function (array $response) {
     );
 
     expect($output)->toBeInstanceOf(ListCategoryUseCaseOutput::class);
-    expect($output->categories)->toBeArray();
-    expect($output->categories)->toHaveCount(count($response));
+    expect($output->items)->toBeArray();
+    expect($output->items)->toHaveCount(count($response));
 })->with('elasticdata.categories');
