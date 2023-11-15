@@ -2,8 +2,8 @@
 
 namespace Tests\Integration\Core\Application\UseCase\Genre;
 
-use Core\Application\DTO\Genre\GenreUseCaseOutput;
 use Core\Application\DTO\Genre\FindGenreUseCaseInput;
+use Core\Application\DTO\Genre\GenreUseCaseOutput;
 use Core\Application\UseCase\Genre\FindGenreUseCase;
 use Core\Domain\Exceptions\GenreNotFoundException;
 use Core\Infra\Repository\GenreElasticsearchRepository;
@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Config;
 use Tests\Stubs\ElasticsearchClientStub;
 
 Config::shouldReceive('get')
-        ->with('services.elasticsearch.default_index')
-        ->andReturn('index');
+    ->with('services.elasticsearch.default_index')
+    ->andReturn('index');
 
 test('FindGenreUseCaseIntegrationTest ok', function () {
     $elasticsearchClientStub = new ElasticsearchClientStub(

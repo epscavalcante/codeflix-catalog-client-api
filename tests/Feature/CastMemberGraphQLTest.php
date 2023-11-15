@@ -2,12 +2,12 @@
 
 test('CastMember GraphQL: list cast members', function () {
     $response = $this->postJson('/graphql', [
-        'query' => "{
+        'query' => '{
             ListCastMember {
                 id,
                 name
             }
-        }"
+        }',
     ]);
 
     $response->assertOk()
@@ -16,10 +16,10 @@ test('CastMember GraphQL: list cast members', function () {
                 'ListCastMember' => [
                     '*' => [
                         'id',
-                        'name'
-                    ]
-                ]
-            ]
+                        'name',
+                    ],
+                ],
+            ],
         ]);
 });
 
@@ -30,7 +30,7 @@ test('CastMember GraphQL: find castMember', function () {
                 id,
                 name
             }
-        }'
+        }',
     ]);
 
     $response->assertOk()
@@ -38,8 +38,8 @@ test('CastMember GraphQL: find castMember', function () {
             'data' => [
                 'FindCastMember' => [
                     'id',
-                    'name'
-                ]
-            ]
+                    'name',
+                ],
+            ],
         ]);
 });

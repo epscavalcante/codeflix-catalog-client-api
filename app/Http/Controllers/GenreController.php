@@ -22,7 +22,7 @@ class GenreController extends Controller
 
         return GenreResource::collection($output->items)
             ->additional([
-                'total' => $output->total
+                'total' => $output->total,
             ]);
     }
 

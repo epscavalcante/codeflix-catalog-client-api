@@ -28,7 +28,7 @@ class CategoryController extends Controller
 
         return CategoryResource::collection($output->items)
             ->additional([
-                'total' => $output->total
+                'total' => $output->total,
             ]);
     }
 

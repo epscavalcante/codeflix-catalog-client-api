@@ -45,7 +45,7 @@ class ListCategoryQuery extends Query
         $output = $this->usecase->execute($input);
 
         return array_map(
-            fn ($item) =>  (new CategoryResource($item))->resolve(),
+            fn ($item) => (new CategoryResource($item))->resolve(),
             $output->items
         );
     }

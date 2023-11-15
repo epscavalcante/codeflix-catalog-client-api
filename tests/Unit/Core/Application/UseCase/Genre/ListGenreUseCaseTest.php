@@ -37,13 +37,13 @@ test('ListCategoryUseCaseTest 2 registros', function () {
         new Genre(
             name: 'Filme',
             categoriesId: [
-                CategoryId::generate()
+                CategoryId::generate(),
             ]
         ),
         new Genre(
             name: 'Documentário',
             categoriesId: [
-                CategoryId::generate()
+                CategoryId::generate(),
             ]
         ),
     ];

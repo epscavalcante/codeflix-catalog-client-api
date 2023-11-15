@@ -4,7 +4,6 @@ namespace Core\Application\DTO;
 
 use Core\Domain\Entities\Category;
 use DateTime;
-use DateTimeInterface;
 
 class CategoryUseCaseOutput
 {

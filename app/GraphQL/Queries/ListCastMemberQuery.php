@@ -45,7 +45,7 @@ class ListCastMemberQuery extends Query
         $output = $this->usecase->execute($input);
 
         return array_map(
-            fn ($item) =>  (new CastMemberResource($item))->resolve(),
+            fn ($item) => (new CastMemberResource($item))->resolve(),
             $output->items
         );
     }

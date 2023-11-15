@@ -39,7 +39,7 @@ class DomainValidator
         mixed $value,
         string $message = 'value must be a number'
     ) {
-        if (!is_numeric($value)) {
+        if (! is_numeric($value)) {
             throw new EntityValidationException($message);
         }
     }
@@ -47,9 +47,9 @@ class DomainValidator
     public static function isA(
         mixed $value,
         string $class,
-        string $message = "value must be an instance of %s"
+        string $message = 'value must be an instance of %s'
     ) {
-        if (!is_a($value, $class)) {
+        if (! is_a($value, $class)) {
             throw new EntityValidationException(sprintf($message, $class));
         }
     }

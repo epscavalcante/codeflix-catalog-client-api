@@ -2,12 +2,12 @@
 
 test('Genre GraphQL: list categories', function () {
     $response = $this->postJson('/graphql', [
-        'query' => "{
+        'query' => '{
             ListGenre {
                 id,
                 name
             }
-        }"
+        }',
     ]);
 
     $response->assertOk()
@@ -16,10 +16,10 @@ test('Genre GraphQL: list categories', function () {
                 'ListGenre' => [
                     '*' => [
                         'id',
-                        'name'
-                    ]
-                ]
-            ]
+                        'name',
+                    ],
+                ],
+            ],
         ]);
 });
 
@@ -30,7 +30,7 @@ test('Genre GraphQL: find genre', function () {
                 id,
                 name
             }
-        }'
+        }',
     ]);
 
     $response->assertOk()
@@ -38,17 +38,17 @@ test('Genre GraphQL: find genre', function () {
             'data' => [
                 'FindGenre' => [
                     'id',
-                    'name'
-                ]
-            ]
+                    'name',
+                ],
+            ],
         ]);
 
     expect($response->json())->toBe([
         'data' => [
             'FindGenre' => [
                 'id' => '66d333ba-9bf3-3ddb-9d22-aa60b9fb0865',
-                'name' => "Prof. Emerald McKenzie"
-            ]
-        ]
+                'name' => 'Prof. Emerald McKenzie',
+            ],
+        ],
     ]);
 });

@@ -48,7 +48,7 @@ class ListGenreQuery extends Query
         $output = $this->usecase->execute($input);
 
         return array_map(
-            fn ($item) =>  (new GenreResource($item))->resolve(),
+            fn ($item) => (new GenreResource($item))->resolve(),
             $output->items
         );
     }

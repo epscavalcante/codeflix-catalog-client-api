@@ -10,7 +10,7 @@ use DateTime;
 class Genre
 {
     /**
-     * @param array<CategoryId> $categoriesId
+     * @param  array<CategoryId>  $categoriesId
      */
     public function __construct(
         public string $name,

@@ -70,7 +70,7 @@ dataset('elasticdata.genres', [
                     'name' => 'Documentários',
                     'categories_id' => [
                         'b74928a5-18ed-3e13-a268-0bf005d8d2eb',
-                        '8d8faa64-353b-3e7d-a84d-f9eeca0f4533'
+                        '8d8faa64-353b-3e7d-a84d-f9eeca0f4533',
                     ],
                     'created_at' => '1997-12-05T06:39:06+0000',
                 ],

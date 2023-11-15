@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Adapters\ElasticsearchClientAdapter;
-use Database\Factories\CategoryFactory;
 use Database\Factories\GenreFactory;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\select;
