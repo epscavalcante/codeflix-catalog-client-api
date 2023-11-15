@@ -2,26 +2,27 @@
 
 namespace Core\Infra\Repository;
 
-use Core\Domain\Entities\CastMember;
-use Core\Domain\Exceptions\CastMemberNotFoundException;
-use Core\Domain\Repository\CastMemberRepository;
-use Core\Domain\Repository\CastMemberRepositorySearchResult;
-use Core\Domain\ValueObjects\CastMemberId;
+use Core\Domain\Entities\Genre;
+use Core\Domain\Exceptions\GenreNotFoundException;
+use Core\Domain\Repository\GenreRepository;
+use Core\Domain\Repository\GenreRepositorySearchResult;
+use Core\Domain\ValueObjects\CategoryId;
+use Core\Domain\ValueObjects\GenreId;
 use Core\Infra\Contracts\ElasticsearchClientInterface;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 
-class CastMemberElasticsearchRepository implements CastMemberRepository
+class GenreElasticsearchRepository implements GenreRepository
 {
     protected array $params = [];
 
     public function __construct(
         protected ElasticsearchClientInterface $elastichsearch,
     ) {
-        $this->params['index'] = Config::get('services.elasticsearch.default_index').'.cast_members';
+        $this->params['index'] = Config::get('services.elasticsearch.default_index').'.genres';
     }
 
-    public function find(CastMemberId $id): CastMember
+    public function find(GenreId $id): Genre
     {
         $this->params['body'] = [
             'query' => [
@@ -34,18 +35,18 @@ class CastMemberElasticsearchRepository implements CastMemberRepository
         $searchResult = $this->elastichsearch->search($this->params);
 
         if (count($searchResult->items) === 0) {
-            throw new CastMemberNotFoundException($id);
+            throw new GenreNotFoundException($id);
         }
 
-        return new CastMember(
+        return new Genre(
             id: $id,
             name: $searchResult->items[0]['_source']['name'],
-            type: $searchResult->items[0]['_source']['type'],
+            categoriesId: array_map(fn ($categoryId) => new CategoryId($categoryId), $searchResult->items[0]['_source']['categories_id']),
             createdAt: Carbon::parse($searchResult->items[0]['_source']['created_at'])
         );
     }
 
-    public function search(string $query = null): CastMemberRepositorySearchResult
+    public function search(string $query = null): GenreRepositorySearchResult
     {
         if (isset($query) && $query !== '') {
             $this->params['body'] = [
@@ -59,14 +60,14 @@ class CastMemberElasticsearchRepository implements CastMemberRepository
 
         $searchResponse = $this->elastichsearch->search($this->params);
 
-        return new CastMemberRepositorySearchResult(
+        return new GenreRepositorySearchResult(
             total: $searchResponse->total,
             items: array_map(
                 function ($item) {
-                    return new CastMember(
-                        id: new CastMemberId($item['_source']['id']),
+                    return new Genre(
+                        id: new GenreId($item['_source']['id']),
                         name: $item['_source']['name'],
-                        type: $item['_source']['type'],
+                        categoriesId: array_map(fn ($categoryId) => new CategoryId($categoryId), $item['_source']['categories_id']),
                         createdAt: Carbon::parse($item['_source']['created_at'])
                     );
                 },

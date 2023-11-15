@@ -1,9 +1,9 @@
 <?php
 
-test('Category GraphQL: list categories', function () {
+test('Genre GraphQL: list categories', function () {
     $response = $this->postJson('/graphql', [
         'query' => '{
-            ListCategory {
+            ListGenre {
                 id,
                 name
             }
@@ -13,7 +13,7 @@ test('Category GraphQL: list categories', function () {
     $response->assertOk()
         ->assertJsonStructure([
             'data' => [
-                'ListCategory' => [
+                'ListGenre' => [
                     '*' => [
                         'id',
                         'name',
@@ -23,10 +23,10 @@ test('Category GraphQL: list categories', function () {
         ]);
 });
 
-test('Category GraphQL: find category', function () {
+test('Genre GraphQL: find genre', function () {
     $response = $this->postJson('/graphql', [
         'query' => '{
-            FindCategory(id: "ccf66ab8-c5a1-360e-8193-7d01168f7aef") {
+            FindGenre(id: "66d333ba-9bf3-3ddb-9d22-aa60b9fb0865") {
                 id,
                 name
             }
@@ -36,7 +36,7 @@ test('Category GraphQL: find category', function () {
     $response->assertOk()
         ->assertJsonStructure([
             'data' => [
-                'FindCategory' => [
+                'FindGenre' => [
                     'id',
                     'name',
                 ],
@@ -45,9 +45,9 @@ test('Category GraphQL: find category', function () {
 
     expect($response->json())->toBe([
         'data' => [
-            'FindCategory' => [
-                'id' => 'ccf66ab8-c5a1-360e-8193-7d01168f7aef',
-                'name' => "LightPink Witting, D'Amore and Blick",
+            'FindGenre' => [
+                'id' => '66d333ba-9bf3-3ddb-9d22-aa60b9fb0865',
+                'name' => 'Prof. Emerald McKenzie',
             ],
         ],
     ]);

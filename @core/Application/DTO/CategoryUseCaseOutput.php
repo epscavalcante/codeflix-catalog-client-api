@@ -26,4 +26,15 @@ class CategoryUseCaseOutput
             createdAt: $category->createdAt
         );
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'isActive' => $this->isActive,
+            'createdAt' => $this->createdAt->format(DateTime::ATOM),
+        ];
+    }
 }

@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use App\Http\Resources\CategoryResource;
-use Core\Application\DTO\FindCategoryUseCaseInput;
-use Core\Application\UseCase\FindCategoryUseCase;
+use App\Http\Resources\GenreResource;
+use Core\Application\DTO\Genre\FindGenreUseCaseInput;
+use Core\Application\UseCase\Genre\FindGenreUseCase;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
 
-class FindCategoryQuery extends Query
+class FindGenreQuery extends Query
 {
     protected $attributes = [
-        'name' => 'FindCategory',
+        'name' => 'FindGenre',
     ];
 
     public function __construct(
-        protected FindCategoryUseCase $usecase
+        protected FindGenreUseCase $usecase
     ) {
     }
 
     public function type(): Type
     {
-        return GraphQL::type('CategoryType');
+        return GraphQL::type('GenreType');
     }
 
     public function args(): array
@@ -40,13 +40,14 @@ class FindCategoryQuery extends Query
 
     public function resolve($root, array $args)
     {
-        $input = new FindCategoryUseCaseInput(
+        $input = new FindGenreUseCaseInput(
             id: $args['id']
         );
+
         $output = $this->usecase->execute(
             input: $input
         );
 
-        return (new CategoryResource($output))->resolve();
+        return (new GenreResource($output))->resolve();
     }
 }

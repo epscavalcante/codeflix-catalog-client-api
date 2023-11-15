@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Adapters\ElasticsearchClientAdapter;
-use Database\Factories\CategoryFactory;
+use Database\Factories\GenreFactory;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\select;
 
@@ -56,7 +56,7 @@ class SeedIndexCommand extends Command
                 ],
             ];
 
-            $params['body'][] = (new CategoryFactory())->definition();
+            $params['body'][] = (new GenreFactory())->definition();
         }
 
         $this->elasticsearchClient->raw()->bulk($params);

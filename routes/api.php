@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CastMemberController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GenreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,11 @@ Route::controller(CastMemberController::class)
     ->group(function () {
         Route::get('/', 'search')->name('castMembers.search');
         Route::get('{castMemberId}', 'find')->name('castMembers.find');
+    });
+
+Route::controller(GenreController::class)
+    ->prefix('genres')
+    ->group(function () {
+        Route::get('/', 'search')->name('genres.search');
+        Route::get('{genreId}', 'find')->name('genres.find');
     });

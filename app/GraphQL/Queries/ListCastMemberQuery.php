@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
+use App\Http\Resources\CastMemberResource;
 use Core\Application\DTO\CastMember\ListCastMemberUseCaseInput;
 use Core\Application\UseCase\CastMember\ListCastMemberUseCase;
 use GraphQL\Type\Definition\Type;
@@ -43,6 +44,9 @@ class ListCastMemberQuery extends Query
         );
         $output = $this->usecase->execute($input);
 
-        return $output->items;
+        return array_map(
+            fn ($item) => (new CastMemberResource($item))->resolve(),
+            $output->items
+        );
     }
 }

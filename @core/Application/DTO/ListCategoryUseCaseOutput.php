@@ -4,6 +4,9 @@ namespace Core\Application\DTO;
 
 class ListCategoryUseCaseOutput
 {
+    /**
+     * @param  array<CategoryUseCaseOut>  $items
+     */
     public function __construct(
         public readonly array $items,
         public readonly int $total

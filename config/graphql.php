@@ -80,6 +80,9 @@ return [
 
                 'ListCastMember' => \App\GraphQL\Queries\ListCastMemberQuery::class,
                 'FindCastMember' => \App\GraphQL\Queries\FindCastMemberQuery::class,
+
+                'ListGenre' => \App\GraphQL\Queries\ListGenreQuery::class,
+                'FindGenre' => \App\GraphQL\Queries\FindGenreQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
@@ -88,6 +91,7 @@ return [
             'types' => [
                 'CategoryType' => \App\GraphQL\Types\CategoryType::class,
                 'CastMemberType' => \App\GraphQL\Types\CastMemberType::class,
+                'GenreType' => \App\GraphQL\Types\GenreType::class,
             ],
 
             // Laravel HTTP middleware
