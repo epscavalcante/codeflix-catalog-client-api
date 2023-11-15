@@ -77,6 +77,9 @@ return [
             'query' => [
                 'ListCategory' => \App\GraphQL\Queries\ListCategoryQuery::class,
                 'FindCategory' => \App\GraphQL\Queries\FindCategoryQuery::class,
+
+                'ListCastMember' => \App\GraphQL\Queries\ListCastMemberQuery::class,
+                'FindCastMember' => \App\GraphQL\Queries\FindCastMemberQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
@@ -84,6 +87,7 @@ return [
             // The types only available in this schema
             'types' => [
                 'CategoryType' => \App\GraphQL\Types\CategoryType::class,
+                'CastMemberType' => \App\GraphQL\Types\CastMemberType::class,
             ],
 
             // Laravel HTTP middleware
