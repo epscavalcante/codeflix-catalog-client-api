@@ -43,6 +43,6 @@ class ListCategoryQuery extends Query
         );
         $output = $this->usecase->execute($input);
 
-        return $output->categories;
+        return $output->items;
     }
 }

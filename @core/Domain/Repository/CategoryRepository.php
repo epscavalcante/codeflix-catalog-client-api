@@ -12,8 +12,5 @@ interface CategoryRepository
      */
     public function find(CategoryId $id): Category;
 
-    /**
-     * @return array<Category>
-     */
-    public function search(string $query = null): array;
+    public function search(string $query = null): CategoryRepositorySearchResult;
 }

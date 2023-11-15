@@ -19,6 +19,9 @@ class ListCategoryUseCase
             query: $input->filter ?? null
         );
 
-        return ListCategoryUseCaseOutput::fromEntities($categoriesSearched);
+        return ListCategoryUseCaseOutput::toOutput(
+            items: $categoriesSearched->items,
+            total: $categoriesSearched->total
+        );
     }
 }

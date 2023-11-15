@@ -3,19 +3,18 @@
 namespace Core\Domain\Entities;
 
 use Core\Domain\Validators\DomainValidator;
-use Core\Domain\ValueObjects\CategoryId;
+use Core\Domain\ValueObjects\CastMemberId;
 use DateTime;
 
-class Category
+class CastMember
 {
     public function __construct(
         public string $name,
-        public ?CategoryId $id = null,
-        public ?string $description = null,
-        public bool $isActive = true,
+        public int $type,
+        public ?CastMemberId $id = null,
         public ?DateTime $createdAt = null,
     ) {
-        $this->id = $this->id ?? CategoryId::generate();
+        $this->id = $this->id ?? CastMemberId::generate();
         $this->createdAt = $this->createdAt ?? new DateTime();
 
         $this->validate();
@@ -24,11 +23,10 @@ class Category
     private function validate()
     {
         DomainValidator::notNull($this->name);
+        //validar mais especificamente o type
+        DomainValidator::notNull($this->type);
+        DomainValidator::isANumber($this->type);
         DomainValidator::minLength($this->name, 3);
         DomainValidator::maxLength($this->name, 255);
-
-        if ($this->description) {
-            DomainValidator::maxLength($this->description, 1000);
-        }
     }
 }

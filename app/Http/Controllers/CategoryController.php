@@ -26,7 +26,10 @@ class CategoryController extends Controller
             input: $input
         );
 
-        return CategoryResource::collection($output->categories);
+        return CategoryResource::collection($output->items)
+            ->additional([
+                'total' => $output->total
+            ]);
     }
 
     public function find(string $categoryId, FindCategoryUseCase $findCategoryUseCase)

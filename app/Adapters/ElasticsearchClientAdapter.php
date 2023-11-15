@@ -2,7 +2,8 @@
 
 namespace App\Adapters;
 
-use Core\Infra\ElasticsearchClientInterface;
+use Core\Infra\Contracts\ElasticsearchClientInterface;
+use Core\Infra\Contracts\SearchResult;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Config;
@@ -24,7 +25,7 @@ class ElasticsearchClientAdapter implements ElasticsearchClientInterface
         return $this->elasticsearch;
     }
 
-    public function search(array $params): array
+    public function search(array $params): SearchResult
     {
         return $this->send($params);
     }
@@ -44,11 +45,14 @@ class ElasticsearchClientAdapter implements ElasticsearchClientInterface
         return $this->elasticsearch;
     }
 
-    private function send(array $params = []): array
+    private function send(array $params = []): SearchResult
     {
         $response = $this->elasticsearch->search($params);
         $responseDecoded = json_decode($response->getBody(), true);
 
-        return $responseDecoded['hits']['hits'];
+        return new SearchResult(
+            total: $responseDecoded['hits']['total']['value'],
+            items: $responseDecoded['hits']['hits']
+        );
     }
 }

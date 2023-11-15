@@ -20,6 +20,7 @@ class CastMemberFactory extends Factory
             'id' => $this->faker->uuid(),
             'name' => $this->faker->name(),
             'type' => rand(1, 2),
+            'created_at' => $this->faker->iso8601(),
         ];
     }
 }

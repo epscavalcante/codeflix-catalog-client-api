@@ -19,7 +19,7 @@ class GenreFactory extends Factory
         return [
             'id' => $this->faker->uuid(),
             'name' => $this->faker->name(),
-            // 'categoriesId =>
+            'created_at' => $this->faker->iso8601(),
         ];
     }
 }

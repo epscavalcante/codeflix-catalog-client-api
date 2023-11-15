@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CastMemberController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('categories')->group(function () {
-    Route::get('/', [CategoryController::class, 'search'])->name('categories.search');
-    Route::get('{categoryId}', [CategoryController::class, 'find'])->name('categories.find');
-});
+Route::controller(CategoryController::class)
+    ->prefix('categories')
+    ->group(function () {
+        Route::get('/', 'search')->name('categories.search');
+        Route::get('{categoryId}', 'find')->name('categories.find');
+    });
+
+Route::controller(CastMemberController::class)
+    ->prefix('cast-members')
+    ->group(function () {
+        Route::get('/', 'search')->name('castMembers.search');
+        Route::get('{castMemberId}', 'find')->name('castMembers.find');
+    });

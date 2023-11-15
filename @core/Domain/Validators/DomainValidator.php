@@ -34,4 +34,13 @@ class DomainValidator
             throw new EntityValidationException(sprintf($message, $length));
         }
     }
+
+    public static function isANumber(
+        mixed $value,
+        string $message = 'value must be a number'
+    ) {
+        if (! is_numeric($value)) {
+            throw new EntityValidationException(sprintf($message));
+        }
+    }
 }

@@ -28,19 +28,25 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
 
-            if ($e instanceof UuidValidationException) {
-                return response()->json([
-                    'status' => HttpResponse::HTTP_BAD_REQUEST,
-                    'message' => $e->getMessage(),
-                ], HttpResponse::HTTP_BAD_REQUEST);
-            }
-
-            if ($e instanceof EntityNotFoundException) {
-                return response()->json([
-                    'status' => HttpResponse::HTTP_NOT_FOUND,
-                    'message' => $e->getMessage(),
-                ], HttpResponse::HTTP_NOT_FOUND);
-            }
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof UuidValidationException) {
+            return response()->json([
+                'status' => HttpResponse::HTTP_BAD_REQUEST,
+                'message' => $e->getMessage(),
+            ], HttpResponse::HTTP_BAD_REQUEST);
+        }
+
+        if ($e instanceof EntityNotFoundException) {
+            return response()->json([
+                'status' => HttpResponse::HTTP_NOT_FOUND,
+                'message' => $e->getMessage(),
+            ], HttpResponse::HTTP_NOT_FOUND);
+        }
+
+        return parent::render($request, $e);
     }
 }

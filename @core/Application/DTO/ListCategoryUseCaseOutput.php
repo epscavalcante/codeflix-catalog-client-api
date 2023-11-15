@@ -2,33 +2,21 @@
 
 namespace Core\Application\DTO;
 
-use Core\Domain\Entities\Category;
-
 class ListCategoryUseCaseOutput
 {
-    /**
-     * @var array<Category>
-     */
     public function __construct(
-        /**
-         * @var array<CategoryUseCaseOutput>
-         */
-        public readonly array $categories,
+        public readonly array $items,
+        public readonly int $total
     ) {
     }
 
-    /**
-     * @var array<Category>
-     */
-    public static function fromEntities(array $categories): self
+    public static function toOutput(array $items, int $total): self
     {
         $categories = array_map(
-            function ($category) {
-                return CategoryUseCaseOutput::fromEntity($category);
-            },
-            $categories
+            callback: fn ($category) => CategoryUseCaseOutput::fromEntity($category),
+            array: $items
         );
 
-        return new self($categories);
+        return new self($categories, $total);
     }
 }
