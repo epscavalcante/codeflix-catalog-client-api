@@ -19,6 +19,7 @@ class GenreFactory extends Factory
         return [
             'id' => $this->faker->uuid(),
             'name' => $this->faker->name(),
+            'categories_id' => array_fill(0, rand(1, 4), $this->faker->uuid()),
             'created_at' => $this->faker->iso8601(),
         ];
     }
