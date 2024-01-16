@@ -20,12 +20,11 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
       run: |
-        mkdir -p database
         touch database/database.sqlite
     - name: Execute tests (Unit Feature tests)
       env:
         DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
+        DB_DATABASE: ":memory:"
       run: php artisan test --testsuite=Unit
 
     - name: Execute lint via Pint
