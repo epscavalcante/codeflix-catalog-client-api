@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $payload = json_decode(Auth::token());
+        $realmAccess = $payload->realm_access ?? null;
+        $realmAccessRoles = $realmAccess->roles ?? [];
+
+        Gate::define('manage-catalog', fn () => in_array('manage-catalog', $realmAccessRoles));
+        Gate::define('manage-catalog-categories', fn () => in_array('manage-catalog-categories', $realmAccessRoles));
+        Gate::define('manage-catalog-cast-members', fn () => in_array('manage-catalog-cast-members', $realmAccessRoles));
+        Gate::define('manage-catalog-genres', fn () => in_array('manage-catalog-genres', $realmAccessRoles));
+        Gate::define('manage-catalog-cast-videos', fn () => in_array('manage-catalog-videos', $realmAccessRoles));
     }
 }
