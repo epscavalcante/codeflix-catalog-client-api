@@ -9,11 +9,14 @@ return [
 
         // The controller/method to use in GraphQL request.
         // Also supported array syntax: `[\Rebing\GraphQL\GraphQLController::class, 'query']`
-        'controller' => \Rebing\GraphQL\GraphQLController::class.'@query',
+        'controller' => \Rebing\GraphQL\GraphQLController::class . '@query',
 
         // Any middleware for the graphql route group
         // This middleware will apply to all schemas
-        'middleware' => [],
+        'middleware' => [
+            'auth:keycloak',
+            'can:manage-catalog'
+        ],
 
         // Additional route group attributes
         //
@@ -74,25 +77,12 @@ return [
     //
     'schemas' => [
         'default' => [
-            'query' => [
-                'ListCategory' => \App\GraphQL\Queries\ListCategoryQuery::class,
-                'FindCategory' => \App\GraphQL\Queries\FindCategoryQuery::class,
-
-                'ListCastMember' => \App\GraphQL\Queries\ListCastMemberQuery::class,
-                'FindCastMember' => \App\GraphQL\Queries\FindCastMemberQuery::class,
-
-                'ListGenre' => \App\GraphQL\Queries\ListGenreQuery::class,
-                'FindGenre' => \App\GraphQL\Queries\FindGenreQuery::class,
-            ],
+            'query' => [],
             'mutation' => [
                 // ExampleMutation::class,
             ],
             // The types only available in this schema
-            'types' => [
-                'CategoryType' => \App\GraphQL\Types\CategoryType::class,
-                'CastMemberType' => \App\GraphQL\Types\CastMemberType::class,
-                'GenreType' => \App\GraphQL\Types\GenreType::class,
-            ],
+            'types' => [],
 
             // Laravel HTTP middleware
             'middleware' => null,
@@ -102,6 +92,37 @@ return [
 
             // An array of middlewares, overrides the global ones
             'execution_middleware' => null,
+        ],
+        'categories' => [
+            'query' => [
+                'ListCategory' => \App\GraphQL\Queries\ListCategoryQuery::class,
+                'FindCategory' => \App\GraphQL\Queries\FindCategoryQuery::class,
+            ],
+            'mutation' => [],
+            'types' => ['CategoryType' => \App\GraphQL\Types\CategoryType::class,],
+            'middleware' => ['can:manage-catalog-categories'],
+        ],
+        'cast-members' => [
+            'query' => [
+                'ListCastMember' => \App\GraphQL\Queries\ListCastMemberQuery::class,
+                'FindCastMember' => \App\GraphQL\Queries\FindCastMemberQuery::class,
+            ],
+            'mutation' => [],
+            'types' => [
+                'CastMemberType' => \App\GraphQL\Types\CastMemberType::class,
+            ],
+            'middleware' => ['can:manage-catalog-cast-members'],
+        ],
+        'genres' => [
+            'query' => [
+                'ListGenre' => \App\GraphQL\Queries\ListGenreQuery::class,
+                'FindGenre' => \App\GraphQL\Queries\FindGenreQuery::class,
+            ],
+            'mutation' => [],
+            'types' => [
+                'GenreType' => \App\GraphQL\Types\GenreType::class,
+            ],
+            'middleware' => ['can:manage-catalog-genres'],
         ],
     ],
 
@@ -207,7 +228,7 @@ return [
         'cache_driver' => env('GRAPHQL_APQ_CACHE_DRIVER', config('cache.default')),
 
         // The cache prefix
-        'cache_prefix' => config('cache.prefix').':graphql.apq',
+        'cache_prefix' => config('cache.prefix') . ':graphql.apq',
 
         // The cache ttl in seconds - See https://www.apollographql.com/docs/apollo-server/performance/apq/#adjusting-cache-time-to-live-ttl
         'cache_ttl' => 300,

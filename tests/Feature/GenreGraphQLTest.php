@@ -1,11 +1,14 @@
 <?php
 
+beforeEach(fn () => $this->withoutMiddleware());
+
 test('Genre GraphQL: list categories', function () {
-    $response = $this->postJson('/graphql', [
+    $response = $this->postJson('/graphql/genres', [
         'query' => '{
             ListGenre {
                 id,
-                name
+                name,
+                created_at
             }
         }',
     ]);
@@ -17,6 +20,7 @@ test('Genre GraphQL: list categories', function () {
                     '*' => [
                         'id',
                         'name',
+                        'created_at'
                     ],
                 ],
             ],
@@ -24,11 +28,12 @@ test('Genre GraphQL: list categories', function () {
 });
 
 test('Genre GraphQL: find genre', function () {
-    $response = $this->postJson('/graphql', [
+    $response = $this->postJson('/graphql/genres', [
         'query' => '{
-            FindGenre(id: "66d333ba-9bf3-3ddb-9d22-aa60b9fb0865") {
+            FindGenre(id: "30f23f61-0ecb-3137-98c2-a4f425757d53") {
                 id,
-                name
+                name,
+                created_at
             }
         }',
     ]);
@@ -39,6 +44,7 @@ test('Genre GraphQL: find genre', function () {
                 'FindGenre' => [
                     'id',
                     'name',
+                    'created_at'
                 ],
             ],
         ]);
@@ -46,8 +52,9 @@ test('Genre GraphQL: find genre', function () {
     expect($response->json())->toBe([
         'data' => [
             'FindGenre' => [
-                'id' => '66d333ba-9bf3-3ddb-9d22-aa60b9fb0865',
-                'name' => 'Prof. Emerald McKenzie',
+                'id' => '30f23f61-0ecb-3137-98c2-a4f425757d53',
+                'name' => 'Filme',
+                "created_at" => "2017-04-07T07:06:33+00:00"
             ],
         ],
     ]);

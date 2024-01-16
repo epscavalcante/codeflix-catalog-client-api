@@ -82,60 +82,35 @@ class ResetCatalogIndexCommand extends Command
 
         $prefix = Config('services.elasticsearch.default_index');
 
-        // $this->elasticsearchClient->raw()->indices()->create([
-        //     'index' => $index
-
-        // ]);
-
         $this->elasticsearchClient->raw()->bulk($data);
     }
 
     private function indexCategoriesData($index)
     {
-        $total = rand(10, 30);
-
-        for ($i = 1; $i <= $total; $i++) {
-            $params['body'][] = [
-                'index' => [
-                    '_index' => $index,
-                ],
-            ];
-
-            $params['body'][] = (new CategoryFactory())->definition();
-        }
-
-        return $params;
+        $categories = json_decode(file_get_contents(database_path('mocks/categories.json')), true);
+        return $this->mountData($categories, $index);
     }
 
     private function indexGenresData($index)
     {
-        $total = rand(10, 30);
-
-        for ($i = 1; $i <= $total; $i++) {
-            $params['body'][] = [
-                'index' => [
-                    '_index' => $index,
-                ],
-            ];
-
-            $params['body'][] = (new GenreFactory())->definition();
-        }
-
-        return $params;
+        $genres = json_decode(file_get_contents(database_path('mocks/genres.json')), true);
+        return $this->mountData($genres, $index);
     }
 
     private function indexCastMembersData($index)
     {
-        $total = rand(10, 30);
+        $castMembers = json_decode(file_get_contents((database_path('mocks/cast-members.json'))), true);
+        return $this->mountData($castMembers, $index);
+    }
 
-        for ($i = 1; $i <= $total; $i++) {
+    private function mountData(array $items, $index) {
+        for ($i = 1; $i <= count($items); $i++) {
             $params['body'][] = [
                 'index' => [
                     '_index' => $index,
                 ],
             ];
-
-            $params['body'][] = (new CastMemberFactory())->definition();
+            $params['body'][] = $items[$i - 1];
         }
 
         return $params;

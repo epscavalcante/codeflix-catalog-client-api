@@ -1,11 +1,15 @@
 <?php
 
+beforeEach(fn() => $this->withoutMiddleware());
+
 test('CastMember GraphQL: list cast members', function () {
-    $response = $this->postJson('/graphql', [
+    $response = $this->postJson('/graphql/cast-members', [
         'query' => '{
             ListCastMember {
                 id,
-                name
+                name,
+                type,
+                created_at
             }
         }',
     ]);
@@ -17,6 +21,8 @@ test('CastMember GraphQL: list cast members', function () {
                     '*' => [
                         'id',
                         'name',
+                        'type',
+                        'created_at',
                     ],
                 ],
             ],
@@ -24,11 +30,13 @@ test('CastMember GraphQL: list cast members', function () {
 });
 
 test('CastMember GraphQL: find castMember', function () {
-    $response = $this->postJson('/graphql', [
+    $response = $this->postJson('/graphql/cast-members', [
         'query' => '{
-            FindCastMember(id: "279d845e-4f33-3251-b1cb-5d48bb19c9dc") {
+            FindCastMember(id: "30f23f61-0ecb-3137-98c2-a4f425757d53") {
                 id,
-                name
+                name,
+                type,
+                created_at
             }
         }',
     ]);
@@ -39,6 +47,8 @@ test('CastMember GraphQL: find castMember', function () {
                 'FindCastMember' => [
                     'id',
                     'name',
+                    'type',
+                    'created_at'
                 ],
             ],
         ]);

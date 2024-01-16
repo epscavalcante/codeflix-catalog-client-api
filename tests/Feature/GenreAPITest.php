@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
-
 use Core\Domain\ValueObjects\Uuid;
+
+beforeEach(fn() => $this->withoutMiddleware());
 
 test('listagem de generos api rest', function () {
     $this->getJson(route('genres.search'))
         ->assertStatus(200)
-        ->assertJsonCount(10, 'data')
+        ->assertJsonCount(2, 'data')
         ->assertJsonStructure([
             'data' => [
                 '*' => [
@@ -20,7 +20,7 @@ test('listagem de generos api rest', function () {
 });
 
 test('deve filtrar uma lista de generos api rest', function () {
-    $this->getJson(route('genres.search', ['q' => 'Prof']))
+    $this->getJson(route('genres.search', ['q' => 'Filme']))
         ->assertStatus(200)
         ->assertJsonCount(1, 'data')
         ->assertJsonStructure([
@@ -35,7 +35,7 @@ test('deve filtrar uma lista de generos api rest', function () {
 });
 
 test('busca genero pelo id de generos api rest', function () {
-    $id = '66d333ba-9bf3-3ddb-9d22-aa60b9fb0865';
+    $id = '30f23f61-0ecb-3137-98c2-a4f425757d53';
 
     $this->getJson(route('genres.find', $id))
         ->assertStatus(200)
