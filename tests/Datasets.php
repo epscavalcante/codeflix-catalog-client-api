@@ -4,9 +4,9 @@ namespace Tests;
 
 use Illuminate\Support\Arr;
 
-$castMembers = json_decode(file_get_contents('/var/www/database/mocks/cast-members.json'), true);
-$categories = json_decode(file_get_contents('/var/www/database/mocks/categories.json'),  true);
-$genres = json_decode(file_get_contents('/var/www/database/mocks/genres.json'), true);
+$castMembers = json_decode(file_get_contents('/var/www/storage/app/mocks/cast-members.json'), true);
+$categories = json_decode(file_get_contents('/var/www/storage/app/mocks/categories.json'),  true);
+$genres = json_decode(file_get_contents('/var/www/storage/app/mocks/genres.json'), true);
 
 dataset('elasticdata.categories', [
     'empty' => [[]],

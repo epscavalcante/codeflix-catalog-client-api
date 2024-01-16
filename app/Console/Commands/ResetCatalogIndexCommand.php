@@ -87,19 +87,19 @@ class ResetCatalogIndexCommand extends Command
 
     private function indexCategoriesData($index)
     {
-        $categories = json_decode(file_get_contents(database_path('mocks/categories.json')), true);
+        $categories = json_decode(file_get_contents(storage_path('app/mocks/categories.json')), true);
         return $this->mountData($categories, $index);
     }
 
     private function indexGenresData($index)
     {
-        $genres = json_decode(file_get_contents(database_path('mocks/genres.json')), true);
+        $genres = json_decode(file_get_contents(storage_path('app/mocks/genres.json')), true);
         return $this->mountData($genres, $index);
     }
 
     private function indexCastMembersData($index)
     {
-        $castMembers = json_decode(file_get_contents((database_path('mocks/cast-members.json'))), true);
+        $castMembers = json_decode(file_get_contents((storage_path('app/mocks/cast-members.json'))), true);
         return $this->mountData($castMembers, $index);
     }
 
