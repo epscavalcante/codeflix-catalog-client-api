@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
-
 use Core\Domain\ValueObjects\Uuid;
+
+beforeEach(fn () => $this->withoutMiddleware());
 
 test('listagem de categorias api rest', function () {
     $this->getJson(route('categories.search'))
         ->assertStatus(200)
-        ->assertJsonCount(10, 'data')
+        ->assertJsonCount(5, 'data')
         ->assertJsonStructure([
             'data' => [
                 '*' => [
@@ -22,7 +22,7 @@ test('listagem de categorias api rest', function () {
 });
 
 test('deve filtrar uma lista de categorias api rest', function () {
-    $this->getJson(route('categories.search', ['q' => 'Darkorange']))
+    $this->getJson(route('categories.search', ['q' => 'Animado']))
         ->assertStatus(200)
         ->assertJsonCount(1, 'data')
         ->assertJsonStructure([
@@ -39,7 +39,7 @@ test('deve filtrar uma lista de categorias api rest', function () {
 });
 
 test('busca categoria pelo id de categorias api rest', function () {
-    $id = 'ccf66ab8-c5a1-360e-8193-7d01168f7aef';
+    $id = '30f23f61-0ecb-3137-98c2-a4f425757d53';
 
     $this->getJson(route('categories.find', $id))
         ->assertStatus(200)

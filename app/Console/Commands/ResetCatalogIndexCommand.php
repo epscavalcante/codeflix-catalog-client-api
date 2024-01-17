@@ -3,9 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Adapters\ElasticsearchClientAdapter;
-use Database\Factories\CastMemberFactory;
-use Database\Factories\CategoryFactory;
-use Database\Factories\GenreFactory;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -82,60 +79,39 @@ class ResetCatalogIndexCommand extends Command
 
         $prefix = Config('services.elasticsearch.default_index');
 
-        // $this->elasticsearchClient->raw()->indices()->create([
-        //     'index' => $index
-
-        // ]);
-
         $this->elasticsearchClient->raw()->bulk($data);
     }
 
     private function indexCategoriesData($index)
     {
-        $total = rand(10, 30);
+        $categories = json_decode(file_get_contents(storage_path('app/mocks/categories.json')), true);
 
-        for ($i = 1; $i <= $total; $i++) {
-            $params['body'][] = [
-                'index' => [
-                    '_index' => $index,
-                ],
-            ];
-
-            $params['body'][] = (new CategoryFactory())->definition();
-        }
-
-        return $params;
+        return $this->mountData($categories, $index);
     }
 
     private function indexGenresData($index)
     {
-        $total = rand(10, 30);
+        $genres = json_decode(file_get_contents(storage_path('app/mocks/genres.json')), true);
 
-        for ($i = 1; $i <= $total; $i++) {
-            $params['body'][] = [
-                'index' => [
-                    '_index' => $index,
-                ],
-            ];
-
-            $params['body'][] = (new GenreFactory())->definition();
-        }
-
-        return $params;
+        return $this->mountData($genres, $index);
     }
 
     private function indexCastMembersData($index)
     {
-        $total = rand(10, 30);
+        $castMembers = json_decode(file_get_contents((storage_path('app/mocks/cast-members.json'))), true);
 
-        for ($i = 1; $i <= $total; $i++) {
+        return $this->mountData($castMembers, $index);
+    }
+
+    private function mountData(array $items, $index)
+    {
+        for ($i = 1; $i <= count($items); $i++) {
             $params['body'][] = [
                 'index' => [
                     '_index' => $index,
                 ],
             ];
-
-            $params['body'][] = (new CastMemberFactory())->definition();
+            $params['body'][] = $items[$i - 1];
         }
 
         return $params;

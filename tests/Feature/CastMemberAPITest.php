@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Feature;
-
 use Core\Domain\ValueObjects\Uuid;
+
+beforeEach(fn () => $this->withoutMiddleware());
 
 test('listagem de castMembers api rest', function () {
     $this->getJson(route('castMembers.search'))
         ->assertStatus(200)
-        ->assertJsonCount(10, 'data')
+        ->assertJsonCount(2, 'data')
         ->assertJsonStructure([
             'data' => [
                 '*' => [
@@ -20,8 +20,8 @@ test('listagem de castMembers api rest', function () {
         ]);
 });
 
-test('deve filtrar uma lista de castMemers api rest', function () {
-    $this->getJson(route('castMembers.search', ['q' => 'Miss Loma']))
+test('deve filtrar uma lista de castMembers api rest', function () {
+    $this->getJson(route('castMembers.search', ['q' => 'Diretor']))
         ->assertStatus(200)
         ->assertJsonCount(1, 'data')
         ->assertJsonStructure([
@@ -36,8 +36,8 @@ test('deve filtrar uma lista de castMemers api rest', function () {
         ]);
 });
 
-test('busca categoria pelo id de categorias api rest', function () {
-    $id = '1fa93532-4327-3ed4-959a-61b93c07bb6b';
+test('busca castMember pelo id', function () {
+    $id = '30f23f61-0ecb-3137-98c2-a4f425757d53';
 
     $this->getJson(route('castMembers.find', $id))
         ->assertStatus(200)
@@ -62,7 +62,7 @@ test('deve receber um 400 id (uuid) inválido', function () {
         ]);
 });
 
-test('deve receber um 404 categoria não encontrada', function () {
+test('deve receber um 404 castMember não encontrado', function () {
     $id = (string) Uuid::generate();
 
     $this->getJson(route('castMembers.find', $id))

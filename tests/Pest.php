@@ -13,9 +13,9 @@
 
 uses(
     Tests\TestCase::class,
+    Tests\CreatesApplication::class // para reconhecer o facade Config?
     // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
-
+)->in('Unit', 'Integration', 'Feature');
 /*
 |--------------------------------------------------------------------------
 | Expectations

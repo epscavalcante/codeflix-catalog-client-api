@@ -17,27 +17,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::controller(CategoryController::class)
-    ->prefix('categories')
+Route::middleware(['auth', 'can:manage-catalog'])
     ->group(function () {
-        Route::get('/', 'search')->name('categories.search');
-        Route::get('{categoryId}', 'find')->name('categories.find');
-    });
 
-Route::controller(CastMemberController::class)
-    ->prefix('cast-members')
-    ->group(function () {
-        Route::get('/', 'search')->name('castMembers.search');
-        Route::get('{castMemberId}', 'find')->name('castMembers.find');
-    });
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
 
-Route::controller(GenreController::class)
-    ->prefix('genres')
-    ->group(function () {
-        Route::get('/', 'search')->name('genres.search');
-        Route::get('{genreId}', 'find')->name('genres.find');
+        Route::controller(CategoryController::class)
+            ->middleware('can:manage-catalog-categories')
+            ->prefix('categories')
+            ->group(function () {
+                Route::get('/', 'search')->name('categories.search');
+                Route::get('{categoryId}', 'find')->name('categories.find');
+            });
+
+        Route::controller(CastMemberController::class)
+            ->middleware('can:manage-catalog-cast-members')
+            ->prefix('cast-members')
+            ->group(function () {
+                Route::get('/', 'search')->name('castMembers.search');
+                Route::get('{castMemberId}', 'find')->name('castMembers.find');
+            });
+
+        Route::controller(GenreController::class)
+            ->middleware('can:manage-catalog-genres')
+            ->prefix('genres')
+            ->group(function () {
+                Route::get('/', 'search')->name('genres.search');
+                Route::get('{genreId}', 'find')->name('genres.find');
+            });
     });

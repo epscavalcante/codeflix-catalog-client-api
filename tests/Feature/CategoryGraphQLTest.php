@@ -1,7 +1,9 @@
 <?php
 
+beforeEach(fn () => $this->withoutMiddleware());
+
 test('Category GraphQL: list categories', function () {
-    $response = $this->postJson('/graphql', [
+    $response = $this->postJson('/graphql/categories', [
         'query' => '{
             ListCategory {
                 id,
@@ -24,9 +26,9 @@ test('Category GraphQL: list categories', function () {
 });
 
 test('Category GraphQL: find category', function () {
-    $response = $this->postJson('/graphql', [
+    $response = $this->postJson('/graphql/categories', [
         'query' => '{
-            FindCategory(id: "ccf66ab8-c5a1-360e-8193-7d01168f7aef") {
+            FindCategory(id: "30f23f61-0ecb-3137-98c2-a4f425757d53") {
                 id,
                 name
             }
@@ -46,8 +48,8 @@ test('Category GraphQL: find category', function () {
     expect($response->json())->toBe([
         'data' => [
             'FindCategory' => [
-                'id' => 'ccf66ab8-c5a1-360e-8193-7d01168f7aef',
-                'name' => "LightPink Witting, D'Amore and Blick",
+                'id' => '30f23f61-0ecb-3137-98c2-a4f425757d53',
+                'name' => 'Animado',
             ],
         ],
     ]);
