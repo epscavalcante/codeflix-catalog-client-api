@@ -20,7 +20,7 @@ test('Genre GraphQL: list categories', function () {
                     '*' => [
                         'id',
                         'name',
-                        'created_at'
+                        'created_at',
                     ],
                 ],
             ],
@@ -44,7 +44,7 @@ test('Genre GraphQL: find genre', function () {
                 'FindGenre' => [
                     'id',
                     'name',
-                    'created_at'
+                    'created_at',
                 ],
             ],
         ]);
@@ -54,7 +54,7 @@ test('Genre GraphQL: find genre', function () {
             'FindGenre' => [
                 'id' => '30f23f61-0ecb-3137-98c2-a4f425757d53',
                 'name' => 'Filme',
-                "created_at" => "2017-04-07T07:06:33+00:00"
+                'created_at' => '2017-04-07T07:06:33+00:00',
             ],
         ],
     ]);

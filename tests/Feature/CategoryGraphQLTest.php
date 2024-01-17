@@ -1,6 +1,6 @@
 <?php
 
-beforeEach(fn() => $this->withoutMiddleware());
+beforeEach(fn () => $this->withoutMiddleware());
 
 test('Category GraphQL: list categories', function () {
     $response = $this->postJson('/graphql/categories', [
@@ -49,7 +49,7 @@ test('Category GraphQL: find category', function () {
         'data' => [
             'FindCategory' => [
                 'id' => '30f23f61-0ecb-3137-98c2-a4f425757d53',
-                'name' => "Animado",
+                'name' => 'Animado',
             ],
         ],
     ]);

@@ -3,9 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Adapters\ElasticsearchClientAdapter;
-use Database\Factories\CastMemberFactory;
-use Database\Factories\CategoryFactory;
-use Database\Factories\GenreFactory;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -88,22 +85,26 @@ class ResetCatalogIndexCommand extends Command
     private function indexCategoriesData($index)
     {
         $categories = json_decode(file_get_contents(storage_path('app/mocks/categories.json')), true);
+
         return $this->mountData($categories, $index);
     }
 
     private function indexGenresData($index)
     {
         $genres = json_decode(file_get_contents(storage_path('app/mocks/genres.json')), true);
+
         return $this->mountData($genres, $index);
     }
 
     private function indexCastMembersData($index)
     {
         $castMembers = json_decode(file_get_contents((storage_path('app/mocks/cast-members.json'))), true);
+
         return $this->mountData($castMembers, $index);
     }
 
-    private function mountData(array $items, $index) {
+    private function mountData(array $items, $index)
+    {
         for ($i = 1; $i <= count($items); $i++) {
             $params['body'][] = [
                 'index' => [

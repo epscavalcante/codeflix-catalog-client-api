@@ -8,7 +8,6 @@ use Core\Application\UseCase\CastMember\ListCastMemberUseCase;
 use Core\Infra\Repository\CastMemberElasticsearchRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Storage;
 use Tests\Stubs\ElasticsearchClientStub;
 
 // dd($castMembers);
@@ -24,7 +23,7 @@ test('ListCastMemberUseCaseIntegrationTest search', function () {
                 'name' => $item['name'],
                 'type' => $item['type'],
                 'created_at' => $item['created_at'],
-            ]
+            ],
         ];
     });
     $elasticsearchClientStub = new ElasticsearchClientStub(

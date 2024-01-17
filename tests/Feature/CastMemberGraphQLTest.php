@@ -1,6 +1,6 @@
 <?php
 
-beforeEach(fn() => $this->withoutMiddleware());
+beforeEach(fn () => $this->withoutMiddleware());
 
 test('CastMember GraphQL: list cast members', function () {
     $response = $this->postJson('/graphql/cast-members', [
@@ -48,7 +48,7 @@ test('CastMember GraphQL: find castMember', function () {
                     'id',
                     'name',
                     'type',
-                    'created_at'
+                    'created_at',
                 ],
             ],
         ]);

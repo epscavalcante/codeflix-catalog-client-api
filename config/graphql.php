@@ -9,13 +9,13 @@ return [
 
         // The controller/method to use in GraphQL request.
         // Also supported array syntax: `[\Rebing\GraphQL\GraphQLController::class, 'query']`
-        'controller' => \Rebing\GraphQL\GraphQLController::class . '@query',
+        'controller' => \Rebing\GraphQL\GraphQLController::class.'@query',
 
         // Any middleware for the graphql route group
         // This middleware will apply to all schemas
         'middleware' => [
             'auth:keycloak',
-            'can:manage-catalog'
+            'can:manage-catalog',
         ],
 
         // Additional route group attributes
@@ -99,7 +99,7 @@ return [
                 'FindCategory' => \App\GraphQL\Queries\FindCategoryQuery::class,
             ],
             'mutation' => [],
-            'types' => ['CategoryType' => \App\GraphQL\Types\CategoryType::class,],
+            'types' => ['CategoryType' => \App\GraphQL\Types\CategoryType::class],
             'middleware' => ['can:manage-catalog-categories'],
         ],
         'cast-members' => [
@@ -228,7 +228,7 @@ return [
         'cache_driver' => env('GRAPHQL_APQ_CACHE_DRIVER', config('cache.default')),
 
         // The cache prefix
-        'cache_prefix' => config('cache.prefix') . ':graphql.apq',
+        'cache_prefix' => config('cache.prefix').':graphql.apq',
 
         // The cache ttl in seconds - See https://www.apollographql.com/docs/apollo-server/performance/apq/#adjusting-cache-time-to-live-ttl
         'cache_ttl' => 300,

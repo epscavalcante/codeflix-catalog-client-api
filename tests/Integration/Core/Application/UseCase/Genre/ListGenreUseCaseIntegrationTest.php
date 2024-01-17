@@ -22,7 +22,7 @@ test('ListGenreUseCaseIntegrationTest search', function () {
                 'name' => $item['name'],
                 'categories_id' => $item['categories_id'],
                 'created_at' => $item['created_at'],
-            ]
+            ],
         ];
     });
     $elasticsearchClientStub = new ElasticsearchClientStub(

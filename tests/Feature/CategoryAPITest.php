@@ -2,7 +2,7 @@
 
 use Core\Domain\ValueObjects\Uuid;
 
-beforeEach(fn() => $this->withoutMiddleware());
+beforeEach(fn () => $this->withoutMiddleware());
 
 test('listagem de categorias api rest', function () {
     $this->getJson(route('categories.search'))
