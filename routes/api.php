@@ -17,15 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth', 'can:manage-catalog'])
+Route::middleware([/*'auth', 'can:manage-catalog'*/])
     ->group(function () {
-
         Route::get('/user', function (Request $request) {
             return $request->user();
         });
 
         Route::controller(CategoryController::class)
-            ->middleware('can:manage-catalog-categories')
+            //->middleware('can:manage-catalog-categories')
             ->prefix('categories')
             ->group(function () {
                 Route::get('/', 'search')->name('categories.search');
@@ -33,7 +32,7 @@ Route::middleware(['auth', 'can:manage-catalog'])
             });
 
         Route::controller(CastMemberController::class)
-            ->middleware('can:manage-catalog-cast-members')
+            // ->middleware('can:manage-catalog-cast-members')
             ->prefix('cast-members')
             ->group(function () {
                 Route::get('/', 'search')->name('castMembers.search');
@@ -41,7 +40,7 @@ Route::middleware(['auth', 'can:manage-catalog'])
             });
 
         Route::controller(GenreController::class)
-            ->middleware('can:manage-catalog-genres')
+            // ->middleware('can:manage-catalog-genres')
             ->prefix('genres')
             ->group(function () {
                 Route::get('/', 'search')->name('genres.search');
