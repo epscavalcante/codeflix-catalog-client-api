@@ -33,7 +33,7 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+      run: php artisan test
 
     - name: Execute lint via Pint
       run: vendor/bin/pint --test
